@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>ins.marianao</groupId>
-    <artifactId>sailing-fxml</artifactId>
+    <artifactId>sailing-fxml-alumnes</artifactId>
     <version>2024.09</version>
     <name>ins.marianao.sailing-fxml</name>
     
@@ -65,7 +65,7 @@
 		</dependency>
 		<dependency>
 			<groupId>cat.institutmarianao</groupId>
-			<artifactId>sailingws</artifactId>
+			<artifactId>sailingws-alumnes</artifactId>
 			<version>2024.09</version>
 			<scope>compile</scope>
 		</dependency>
