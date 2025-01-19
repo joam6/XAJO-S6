@@ -1,0 +1,578 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+.root {
+ 	-fx-font-family: "Catamaran";
+ 	-fx-font-size: 12 px;
+ 	-fx-font-weight: normal;
+ 	-fx-background-color: white;
+}
+
+.button {
+	/*-fx-font-family: "sans-serif";*/
+	-fx-font-family: Dosis;
+	-fx-background-color:
+        /*rgba(0,0,0,0.88),*/
+        gray,
+        /*linear-gradient(#9a9a9a, #909090),*/
+        linear-gradient(lightgrey, lightslategray),
+        linear-gradient(white 0%, #f3f3f3 50%, #ececec 51%, #f2f2f2 100%);
+    -fx-background-radius: 4;
+    -fx-padding: 8px 16px;
+    -fx-text-fill: lightslategray;
+    -fx-font-size: 16px;
+
+    -fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 1px;
+	-fx-border-insets: 0;
+	-fx-border-radius: 5px;
+}
+
+.button:hover {
+     -fx-background-color:
+        white,
+        linear-gradient(lightgray 2%, lavender 40%, ghostwhite 80%);
+        /*linear-gradient(lightslategray 50%, lightgray 75%, ghostwhite 100%),*/
+        /*radial-gradient(center 50% -40%, radius 200%, lightslategray 45%, rgba(30,30,230,0) 50%)*/
+        /*radial-gradient(center 50% 50%, radius 80%, rgba(30,30,230,0) 40%, lightslategray 160%);*/
+     /*-fx-text-fill: dimgray;*/
+     /*-fx-font-weight: bold;*/
+     /*-fx-underline: true;*/
+     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+     -fx-cursor: hand;
+}
+.button:pressed {
+    -fx-background-insets: 2 0 0 0,2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.button:disabled {
+	-fx-opacity: 0.8;
+}
+
+.button.dark-button {
+	-fx-background-color: 
+		lightslategrey,
+		linear-gradient(lightslategrey 0%, #78899a 50%, #798a9b 51%, #7a8b9c 100%);
+    -fx-text-fill: white;
+    -fx-border-color: lightslategrey;
+}
+
+.button.dark-button:hover {
+     -fx-background-color: 
+     	slategray;
+     -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+     -fx-cursor: hand;
+}
+
+.button.square-button {
+    -fx-padding: 8px;
+	-fx-min-width: 70px;
+	-fx-min-height: 60px;
+	-fx-font-weight: bold;
+}
+
+.button.icon-button {
+    -fx-padding: 6px;
+	-fx-min-width: 50px;
+	-fx-min-height: 40px;
+	-fx-font-weight: bold;
+}
+
+.button.button-fullwidth {
+	-fx-pref-width: 1200px;
+}
+
+.panel-solid {
+	-fx-background-color: white;
+}
+
+.password-field, .text-field, .combo-box, .combo-box > .cell, .date-picker > .text-field, .spinner > .text-field  {
+	-fx-font-size: 14 px;
+	-fx-text-fill: teal;
+	-fx-alignment: center;
+	-fx-pref-height: 40px;
+	-fx-min-height: 40px;
+}
+
+.text-field, .password-field, .combo-box,
+.date-picker > .text-field,
+.spinner > .text-field,
+.date-picker > .arrow-button,
+.date-picker-popup .button,
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button,
+.textarea  {
+	-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 1px;
+	-fx-border-insets: 0;
+	-fx-border-radius: 4px;
+	-fx-padding: 6.0px;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+	-fx-background-radius: 0;
+	-fx-padding: 10.0px;
+	-fx-border-radius: 0;
+}
+
+.spinner .increment-arrow-button {
+	-fx-border-radius: 0.0 5px 0.0 0.0;
+}
+.spinner .decrement-arrow-button {
+	-fx-border-radius: 0.0 0.0 5px 0.0;
+}
+
+.spinner .increment-arrow-button .increment-arrow, 
+.spinner .decrement-arrow-button .decrement-arrow {
+	
+}
+
+.combo-box  {
+	-fx-border-radius: 6px;
+	-fx-padding: 2.0px 4.0px;
+	-fx-background-color: white;
+}
+
+.combo-box > * {
+	-fx-border-style: none outside;
+	-fx-padding: 4.0px;
+}
+
+/* CSS Date-picker => com/sun/javafx/scene/control/skin/modena/modena.css */
+
+.date-picker {
+	/*-fx-max-width: 120px;*/
+}
+
+.date-picker > .text-field,
+.spinner > .text-field {
+	-fx-border-radius: 5px 0.0 0.0 5px;
+}
+
+.date-picker > .arrow-button {		/* Button del calendari adjunt al datepicker */
+	-fx-padding: 8.0px;
+	-fx-border-radius: 0 5px 5px 0;
+
+}
+
+.date-picker > .arrow-button > .arrow {		/* Icona calendari button adjunt al datepicker */
+	-fx-background-color: lightslategray;
+}
+
+.date-picker-popup .button { 	/* Buttons pop-up date-picker */
+    -fx-padding: 4px;
+    -fx-text-fill: lightslategray;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+
+	-fx-border-width: 0.5px;
+	-fx-border-radius: 5px;
+	-fx-min-width: 30px;
+}
+
+/* DIALOG */
+
+.dialog-pane { 
+	-fx-pref-width: 230px;
+}
+
+.dialog-pane .label { }
+
+.dialog-pane:header .header-panel {
+    -fx-background-color: lightslategray;
+}
+
+.dialog-pane:header .header-panel .label { 
+	-fx-text-fill: white;
+	-fx-font-size: 16.0px;
+}
+
+
+
+/* DIALOG END */
+
+.topregion {
+    -fx-background-color: linear-gradient(#a6b5c9 85%, slategrey 100%);
+}
+
+.label, .check-box
+{
+    -fx-font-family: Dosis;
+    -fx-font-size: 14 px;
+	-fx-text-fill: dimgray;
+}
+
+.label-large {
+    -fx-font-size: 20 px;
+}
+
+.label-small {
+    -fx-font-size: 13 px;
+    -fx-font-weight: normal;
+}
+
+.underlabel {
+    -fx-font-size: 13 px;
+    -fx-font-style: italic;
+	/*-fx-text-fill: lightslategray;*/
+	-fx-text-fill: dimgray;
+}
+
+.label.title {
+	-fx-font-family: Dosis;
+	-fx-font-size: 26 px;
+    -fx-font-weight: bold;
+	-fx-text-fill: lightslategray;
+}
+
+.topregion .label.title {
+	-fx-text-fill: white;
+	-fx-font-size: 30 px;
+}
+
+.error-sms {
+	-fx-font-size: 13 px;
+	-fx-font-style: italic;
+	-fx-text-fill: red;
+}
+
+.text-console {
+	-fx-background-color: beige;
+	/*-fx-background-color: white, linear-gradient(beige 0%, rgba(225,225,225,0.2) 100%);*/
+	-fx-text-fill: lightslategray;
+	/*-fx-text-alignment:  justify;*/
+	-fx-padding: 10.0px;
+
+	-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 1px;
+	-fx-border-radius: 3px;
+	-fx-border-insets: 0;
+
+	/* Font mono */
+	-fx-font-family: monospace;
+	-fx-font-size: 13.0px;
+
+}
+
+
+.table-view .table-column .label,
+.table-view .table-column {
+	-fx-font-family: Catamaran;
+	-fx-font-size: 12 px;
+	-fx-font-weight: normal;
+}
+
+.table-view .table-column .text-field {
+	-fx-max-height: 25px;
+	-fx-border-color: lightslategray;
+	-fx-border-style: none;
+	-fx-border-width: 0;
+	-fx-border-insets: 0;
+	-fx-border-radius: 2px;
+	-fx-padding: 0.0 2.0px;
+	-fx-font-size: 12 px;
+}
+
+.table-view .table-column .button {
+	-fx-padding: 3px;
+	-fx-min-width: 30px;
+	-fx-min-height: 30px;
+}
+
+.table-cell {
+    -fx-padding: 4px 2px 2px 2px;
+    -fx-border-color: -fx-box-border -fx-box-border transparent transparent;
+    -fx-border-insets: 0;
+}
+
+/* Mida, bordes i color fons títols */
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: white;
+    -fx-size: 45;
+    -fx-border-color: -fx-box-border;
+    -fx-border-width: 0 1 3 0;
+    -fx-border-insets: 0;
+}
+.table-view .column-header {
+	-fx-background-color: slategrey;
+	-fx-size: 35;
+	-fx-padding: 4px 2px 2px 2px;
+}
+
+/* Títols negreta */
+.table-view .column-header .label {
+	-fx-font-family: Dosis;
+	-fx-font-size: 14 px;
+	-fx-text-fill: white;
+}
+
+.control-center, .control-center .list-cell, .col-center,
+.table-view .column-header.col-center .label {
+	-fx-alignment: center;
+}
+
+.control-left, .control-left .list-cell, .col-left,
+.table-view .column-header.col-left .label {
+	-fx-alignment: center-left;
+}
+
+.control-right, .control-right .list-cell, .col-right,
+.table-view .column-header.col-right .label {
+	-fx-alignment: center-right;
+}
+
+
+
+.input-group > .password-field,
+.input-group > .text-field,
+.input-group > .spinner > .text-field,
+.input-group > .combo-box,
+.input-group > .text-area {
+	-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 1px;
+	-fx-border-insets: 0;
+	-fx-border-radius: 0.0 5px 5px 0.0;
+
+	/*-fx-pref-width: 50px;*/
+	-fx-pref-height: 40px;
+	-fx-min-width: 150px;
+	-fx-min-height: 40px;
+}
+
+.input-group > .square-field > .text-field {
+	-fx-border-radius: 0.0;
+}
+
+.input-group > .check-box {
+	/*-fx-pref-width: 50px;*/
+	-fx-pref-height: 40px;
+	-fx-min-width: 150px;
+	-fx-min-height: 40px;
+}
+
+.input-group > .combo-box > * {
+	-fx-background-color: white;
+	-fx-border-style: none outside;
+}
+
+.input-group > .date-picker > .text-field {
+	-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 1px;
+	-fx-border-insets: 0;
+	-fx-border-radius: 0.0 5px 5px 0.0;
+
+	/*-fx-pref-width: 50px;*/
+	-fx-pref-height: 40px;
+	-fx-min-height: 40px;
+}
+
+.input-group > .date-picker {
+	-fx-min-width: 150px;
+}
+
+.input-group > .password-field.narrow-field,
+.input-group > .text-field.narrow-field,
+.input-group > .spinner.narrow-field > .text-field,
+.input-group > .combo-box.narrow-field {
+	-fx-pref-width: 90px;
+	/*-fx-max-width: 90px;*/
+	-fx-min-width: 70px;
+}
+
+.input-group > .combo-box.combo-fullwidth {
+	-fx-pref-width: 1200px;
+}
+
+
+.input-group > .text-area {
+	-fx-pref-height: 100px;
+	/*-fx-min-width: 50px;*/
+	-fx-min-height: 100px;
+}
+
+
+.input-group > .date-picker > .text-field,
+.input-group > .spinner > .text-field {
+	-fx-border-radius: 0.0;
+}
+
+.input-group > .label {
+	-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 1px;
+	-fx-border-insets: 0;
+	-fx-border-radius: 5px 0.0 0.0 5px;
+	-fx-background-color: lightslategray;
+
+	-fx-pref-width: 90px;
+	-fx-pref-height: 40px;
+	-fx-min-width: 90px;
+	-fx-min-height: 40px;
+
+	-fx-alignment:  center;
+	-fx-padding: 10.0px 2.0px;
+
+	-fx-font-size: 14 px;
+	-fx-text-fill: white;
+}
+
+.input-group > .label.label-large {
+	-fx-pref-width: 150px;
+	-fx-min-width: 150px;
+}
+
+.input-group > .label.label-short {
+	-fx-pref-width: 70px;
+	-fx-min-width: 70px;
+}
+
+.input-group > .label.label-after {
+	-fx-border-style: none;
+    -fx-border-width: 0;
+	-fx-background-color: transparent;
+
+	-fx-pref-width: 90px;
+	-fx-pref-height: 40px;
+	-fx-min-width: 90px;
+	-fx-min-height: 40px;
+
+	-fx-alignment:  center;
+	-fx-padding: 10.0px 5.0px;
+
+	-fx-font-size: 14 px;
+	-fx-text-fill: lightslategray;
+}
+
+.password-field:focused, .text-field:focused, .combo-box:focused,
+.date-picker:focused > .text-field,
+.date-picker > .text-field:focused,
+.spinner > .text-field:focused,
+.spinner:focused > .text-field,
+.textarea:focused {
+	/*-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 1px;
+	-fx-border-insets: 0;
+	-fx-border-radius: 4px;*/
+
+    -fx-background-color: radial-gradient(center 50% 50%, radius 80% , white, beige);
+}
+
+.password-field:disabled, .text-field:disabled, .combo-box:disabled, .combo-box:disabled > *,
+.date-picker:disabled > .text-field,
+.date-picker > .text-field:disabled,
+.input-group > .text-field:disabled,
+.input-group > .date-picker:disabled > .text-field,
+.input-group > .date-picker > .text-field:disabled,
+.input-group > .spinner > .text-field:disabled,
+.input-group > .spinner:disabled > .text-field,
+.spinner > .text-field:disabled,
+.spinner:disabled > .text-field,
+.textarea:disabled {
+	-fx-text-fill: slategrey;
+	-fx-opacity: 0.8;
+}
+
+.password-field:disabled, .text-field:disabled,
+.date-picker:disabled > .text-field,
+.date-picker > .text-field:disabled,
+.spinner > .text-field:disabled,
+.spinner:disabled > .text-field,
+.input-group > .text-field:disabled,
+.input-group > .password-field:disabled,
+.input-group > .date-picker:disabled > .text-field,
+.input-group > .date-picker > .text-field:disabled,
+.input-group > .combo-box:disabled,
+.input-group > .spinner > .text-field:disabled,
+.input-group > .spinner:disabled > .text-field,
+.textarea:disabled {
+	-fx-background-color: radial-gradient(center 50% 50%, radius 100% , white, beige);
+	-fx-border-style: dashed outside;
+}
+
+.blue, .blue .label {
+	-fx-text-fill: navy;
+}
+
+
+.red, .red .label {
+	-fx-text-fill: red;
+}
+
+.green, .green .label {
+	-fx-text-fill: green;
+}
+
+.trip-type-pane-anchor {
+	-fx-background-color: lavender;
+	-fx-background-radius: 5px;
+	-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 2px 2px 5px 2px;
+	-fx-border-insets: 0;
+	-fx-border-radius: 5px;
+}
+
+.trip-type-pane {
+	-fx-padding: 10px;
+	-fx-pref-width: 210px;
+	/*-fx-pref-height: 500px;*/
+}
+
+.trip-type-pane .label {
+	-fx-padding: 0 0 4px 0;
+	-fx-font-size: 16 px;
+}
+
+.trip-type-pane .trip-type-category {
+	-fx-font-family: "Catamaran";
+	-fx-text-fill: lightslategray;
+	-fx-font-size: 18px;
+ 	-fx-font-weight: bold;
+ 	-fx-padding: 0 0 14px 0;
+ 	-fx-alignment: center;
+ 	-fx-min-width: 210px;
+}
+
+.trip-type-pane .trip-type-title {
+	-fx-font-family: "Catamaran";
+ 	-fx-font-size: 16 px;
+ 	-fx-font-weight: bold;
+ 	-fx-padding: 0 0 8px 0;
+ 	-fx-text-fill: lightslategray;
+}
+
+.trip-type-pane .trip-type-desc {
+	-fx-font-size: 16 px;
+ 	-fx-wrap-text: true;
+}
+
+.trip-type-pane .trip-type-departures-title {
+	-fx-font-weight: bold;
+	-fx-border-color: lightslategray;
+	-fx-border-style: solid outside;
+	-fx-border-width: 0 0 1px 0;
+	-fx-border-insets: 0;
+	-fx-padding: 4px 0 0 0;
+ 	-fx-min-width: 210px;
+}
+
+.trip-type-pane .trip-type-departures {
+	-fx-padding: 4px 0 4px 10px;
+}
+
+.trip-type-pane-anchor .button {
+	-fx-min-width: 140px;
+	-fx-padding: 10px;
+}
+
+.dialog-pane .label.trip-type-title {
+	-fx-wrap-text: true;
+	-fx-font-size: 18 px;
+}
+

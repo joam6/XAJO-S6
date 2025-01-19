@@ -1,0 +1,105 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <!-- mvn clean javafx:run -->
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>ins.marianao</groupId>
+    <artifactId>sailing-fxml</artifactId>
+    <version>2024.09</version>
+    <name>ins.marianao.sailing-fxml</name>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>  
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <!--<version>19</version>-->
+            <version>21.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <!--<version>19</version>-->
+            <version>21.0.5</version>
+        </dependency>
+        <dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.17.0</version>
+		</dependency>
+		<dependency>	<!-- https://kb.itextpdf.com/itext/compatibility-matrix -->
+        	<groupId>com.itextpdf</groupId>
+        	<artifactId>itext7-core</artifactId>
+        	<version>7.2.0</version>
+        	<type>pom</type>
+    	</dependency>
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>html2pdf</artifactId>
+		    <version>4.0.0</version>
+		</dependency>
+		<dependency>
+        	<groupId>org.eclipse.parsson</groupId>
+        	<artifactId>parsson</artifactId>
+        	<version>1.1.7</version>
+    	</dependency>
+    	<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-client</artifactId>
+		    <version>3.1.9</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.glassfish.jersey.inject</groupId>
+		  <artifactId>jersey-hk2</artifactId>
+		  <version>3.1.9</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.glassfish.jersey.media</groupId>
+		    <artifactId>jersey-media-json-jackson</artifactId>
+		    <version>3.1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>cat.institutmarianao</groupId>
+			<artifactId>sailingws</artifactId>
+			<version>2024.09</version>
+			<scope>compile</scope>
+		</dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <!--<configuration>
+                    <release>13</release>
+                </configuration>-->
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <executions>
+                    <execution>
+                        <!-- Default configuration for running -->
+                        <!-- Usage: mvn clean javafx:run -->
+                        <id>default-cli</id>
+                        <configuration>
+                            <mainClass>ins.marianao.sailing.fxml.SailingApplication</mainClass>
+                            <archive>
+		                        <manifestEntries>
+		                        	<Automatic-Module-Name>html2pdf</Automatic-Module-Name>
+		                        </manifestEntries>
+		                    </archive>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
