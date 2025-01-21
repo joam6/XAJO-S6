@@ -9,7 +9,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>cat.institutmarianao</groupId>
-	<artifactId>sailingws</artifactId>
+	<artifactId>sailingws-alumnes</artifactId>
 	<version>2024.09</version>
 	<!--<packaging>war</packaging>-->
 	<name>sailingws</name>
