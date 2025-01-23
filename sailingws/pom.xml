@@ -95,6 +95,11 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>Sailing-DAM-Project-alumnes</groupId>
+			<artifactId>Sailing-DAM-Project-alumnes</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
