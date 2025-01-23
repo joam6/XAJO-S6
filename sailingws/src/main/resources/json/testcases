@@ -1,0 +1,62 @@
+
+/authenticate
+
+{
+  "username": "lola",
+  "password": "lola"
+}
+
+{
+  "username": "laia",
+  "password": "laia"
+}
+
+
+***** Authorize Token *****
+
+/users/save
+{
+  "username": "pere",
+  "password": "pere",
+  "role": "CLIENT",
+  "fullName": "Pere Riera i Pi",
+  "phone": "333 23 14"
+}
+
+{
+  "username": "marta",
+  "password": "marta",
+  "role": "ADMIN"
+}
+
+
+/users/delete/by/username/pere	=> 200
+/users/delete/by/username/pere	=> 404
+
+
+/users/update
+
+{
+  "username": "maria",
+  "password": "maria",
+  "role": "CLIENT",
+  "fullName": "Maria Lopez i Castells",
+  "phone": "333 35 13"
+}
+
+{
+  "username": "lola",
+  "password": "lola",
+  "role": "CLIENT",
+  "fullName": "Lola Valls i Vilalta",
+  "phone": "333 25 01"
+}
+
+eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsb2xhIiwiZXhwIjoxNzI5NDI1ODY2LCJhdXRoIjpbIlJPTEVfQ0xJRU5UIl19.6bnDXasA430h3oPW-7jwqPdw34F38fFaWU6TONdAFz8IIF5TOKa8uytqAyqn29uoTYUs3PElYtp3fSvLli9G2Q
+
+{
+  "username": "alex",
+  "password": "alex",
+  "role": "ADMIN"
+}
+

@@ -16,7 +16,10 @@
 	<description>Sailing WS</description>
 	
 	<properties>
+		<!--<jakarta-servlet.version>5.0.0</jakarta-servlet.version>-->
 		<java.version>17</java.version>
+		<!-- <maven.compiler.source>${java.version}</maven.compiler.source>  
+		<maven.compiler.target>${java.version}</maven.compiler.target> -->
 	</properties>
 	<dependencies>
 		<dependency>
@@ -50,6 +53,12 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!--<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>-->
+		<!-- lombok - https://projectlombok.org -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -94,11 +103,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>Sailing-DAM-Project-alumnes</groupId>
-			<artifactId>Sailing-DAM-Project-alumnes</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	<build>

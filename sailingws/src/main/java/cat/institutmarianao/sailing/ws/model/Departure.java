@@ -3,23 +3,26 @@ package cat.institutmarianao.sailing.ws.model;
 import java.io.Serializable;
 import java.util.Date;
 
-
-
 import org.hibernate.annotations.Formula;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import cat.institutmarianao.sailing.ws.SailingWsApplication;
+import cat.institutmarianao.sailing.ws.validation.groups.OnTripCreate;
+import cat.institutmarianao.sailing.ws.validation.groups.OnTripUpdate;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Index;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Entity;   
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Null;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,40 +30,56 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+/* JPA annotations */
+@Entity
+/* Mapping JPA Indexes */
+@Table(name = "departures", indexes = { 
+		@Index(name = "triptype_date_departure", columnList = "trip_type_id, date DESC, departure", unique = true) 
+})
 /* Lombok */
 @Data
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "departures")
-@JsonInclude(JsonInclude.Include.NON_NULL)  // Para excluir campos nulos en el JSON
 public class Departure implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String TZ = "Europe/Madrid";
 	
-	/* Lombok */
-	@EqualsAndHashCode.Include
+	/* Validation */
+	@Null(groups = OnTripCreate.class) // Must be null on inserts
+	@NotNull(groups = OnTripUpdate.class) // Must be not null on updates
+	/* JPA */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Positive
-	@Column (name = "id", nullable = false)
+	@Column(unique = true, nullable = false)
+	/* Lombok */
+	@EqualsAndHashCode.Include
 	protected Long id;
 	
-    @ManyToOne(fetch = FetchType.LAZY)
-    @NotNull
-    @JoinColumn (name = "trip_type_id", nullable = false)
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@ManyToOne(fetch = FetchType.EAGER, optional = false)
 	private TripType tripType;
 	
-    @NotNull
-	@Column (name  = "date" , nullable = false)
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@Temporal(TemporalType.DATE)
+	/* JSON */
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SailingWsApplication.DATE_PATTERN, timezone = TZ)
 	private Date date;
 
-    @Column(name = "departure", nullable = false)
-    private Date departure;
-    
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@Temporal(TemporalType.TIME)
+	/* JSON */
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SailingWsApplication.TIME_PATTERN, timezone = TZ)
+	private Date departure;
+	
 	/* Hibernate */
 	@Formula("(SELECT COALESCE(SUM(t.places), 0) "
 			+ "FROM trips t INNER JOIN actions a ON a.trip_id = t.id " 

@@ -2,8 +2,6 @@ package cat.institutmarianao.sailing.ws.model;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 import cat.institutmarianao.sailing.ws.validation.groups.OnTripTypeCreate;
 import cat.institutmarianao.sailing.ws.validation.groups.OnTripTypeUpdate;
 import jakarta.persistence.Column;
@@ -13,23 +11,21 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance; 
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/* JPA annotations */
+@Entity
+@Table(name = "trip_types")
 /* Lombok */
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Entity
-@Table(name = "trip_types") // El nombre de la tabla
-@JsonInclude(JsonInclude.Include.NON_NULL) 
 public class TripType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -43,38 +39,54 @@ public class TripType implements Serializable {
 		GROUP, PRIVATE
 	}
 
-	/* Lombok */
-	@EqualsAndHashCode.Include
+	/* Validation */
+	@Null(groups = OnTripTypeCreate.class) // Must be null on inserts
+	@NotNull(groups = OnTripTypeUpdate.class) // Must be not null on updates
+	/* JPA */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false, length = 20)
+	@Column(unique = true, nullable = false)
+	/* Lombok */
+	@EqualsAndHashCode.Include
 	private Long id;
-	
-	@NotBlank
-	@Column(name = "title", nullable = false, length = 255)
+
+	/* Validation */
+	@NotNull
 	private String title;
 
+	/* Validation */
 	@NotNull
-    @Enumerated(EnumType.STRING)  // Esto asegura que el enum se guarda como un String en la base de datos
-	@Column(name = "category", nullable = false)
+	/* JPA */
+	@Enumerated(EnumType.STRING) // Stored as string
+	@Column(nullable = false)
 	private Category category;
-    
-	@NotBlank
-	@Column(name = "description", nullable = false, length = 255)
+
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@Column(nullable = false)
 	private String description;
 
-	@NotNull
-    @Column(name = "price", nullable = false)
+	/* Validation */
+	@Positive
 	private double price;
 
-    @Column(name = "departures", nullable = true, length = 255)
-	private String departures;	
+	/* JPA */
+	/*@ElementCollection
+	@CollectionTable(name = "trip_type_departures", joinColumns = @JoinColumn(name = "trip_type_id"))
+	@Column(name = "departure", nullable = false)
+	@Temporal(TemporalType.TIME)
+	private Set<Date> departures;*/
+	
+	private String departures;	// Comma-separated values: 9:30;11:30;13:30
  
-	@NotNull
+	/* Validation */
 	@Positive
-    @Column(name = "duration", nullable = false, length = 11)
 	private int duration;
 
-    @Column(name = "max_places", nullable = true, length = 11)
+	/* Validation */
+	@Positive
+	/* JPA */
+	@Column(name = "max_places")
 	private int maxPlaces;
 }

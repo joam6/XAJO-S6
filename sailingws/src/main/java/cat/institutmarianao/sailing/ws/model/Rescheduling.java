@@ -2,43 +2,62 @@ package cat.institutmarianao.sailing.ws.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
+import cat.institutmarianao.sailing.ws.SailingWsApplication;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import cat.institutmarianao.sailing.ws.validation.groups.OnActionCreate;
-import cat.institutmarianao.sailing.ws.validation.groups.OnActionUpdate;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-
+/* JPA annotations */
+@Entity
+@DiscriminatorValue(Action.RESCHEDULING)
 /* Lombok */
 @Data
 @NoArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-@Entity
-@DiscriminatorValue("Rescheduling")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Rescheduling extends Action {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "reason", length = 255, nullable = true)
 	private String reason;
 	
-	@Column(name="old_date", nullable = true)
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@Temporal(TemporalType.DATE)
+	/* JSON */
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SailingWsApplication.DATE_PATTERN, timezone = Departure.TZ)
 	private Date oldDate;
 
-	@Column(name="old_departure", nullable = true)
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@Temporal(TemporalType.TIME)
+	/* JSON */
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SailingWsApplication.TIME_PATTERN, timezone = Departure.TZ)
 	private Date oldDeparture;
 	
-	@Column(name="new_date", nullable = true)
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@Temporal(TemporalType.DATE)
+	/* JSON */
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SailingWsApplication.DATE_PATTERN, timezone = Departure.TZ)
 	private Date newDate;
 
-	@Column (name="new_departure", nullable = true)
+	/* Validation */
+	@NotNull
+	/* JPA */
+	@Temporal(TemporalType.TIME)
+	/* JSON */
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = SailingWsApplication.TIME_PATTERN, timezone = Departure.TZ)
 	private Date newDeparture;
 	
 	@Override
