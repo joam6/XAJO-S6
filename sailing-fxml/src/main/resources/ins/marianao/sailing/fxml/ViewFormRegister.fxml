@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="viewLoginForm" prefHeight="540.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerFormLogin">
+<BorderPane fx:id="viewLoginForm" prefHeight="540.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerFormRegister">
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
@@ -50,7 +50,7 @@
                   <PasswordField fx:id="txtConfirmPassword" promptText="%fxml.text.register.confirmpassword" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <TextField fx:id="txtFullName" promptText="%fxml.text.register.fullname" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <TextField fx:id="txtPhone" promptText="%fxml.text.register.phone" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Button fx:id="btnLogin" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#loginClick" prefHeight="54.0" prefWidth="510.0" styleClass="button-fullwidth" text="%fxml.text.register.submit" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <Button fx:id="btnRegister" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#registerClick" prefHeight="54.0" prefWidth="510.0" styleClass="button-fullwidth" text="%fxml.text.register.submit" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <TextField text="Username" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
                   <TextField text="Password" GridPane.rowIndex="3" />
                   <TextField text="Confirm Password" GridPane.rowIndex="4" />
