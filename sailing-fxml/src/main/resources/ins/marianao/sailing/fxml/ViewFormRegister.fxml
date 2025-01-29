@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="viewLoginForm" prefHeight="540.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerFormLogin">
+<BorderPane fx:id="viewFormRegister" prefHeight="540.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerFormRegister">
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
@@ -35,22 +35,22 @@
                   <RowConstraints maxHeight="67.0" minHeight="0.0" prefHeight="0.0" vgrow="ALWAYS" />
             	</rowConstraints>
                 <children>
-                  <Label fx:id="titleRegister" styleClass="title" text="%fxml.text.register.userform" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" />
+                  <Label fx:id="titleRegister" styleClass="title" text="" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" />
                   <SplitMenuButton fx:id="menuUser" mnemonicParsing="false" prefHeight="42.0" prefWidth="185.0" text="Cliente" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Admin" />
                     </items>
                   </SplitMenuButton>
-                  <TextField fx:id="txtUsername" promptText="%fxml.text.register.username" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <TextField fx:id="txtUsername" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </TextField>
-                  <PasswordField fx:id="txtPassword" promptText="%fxml.text.register.password" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <PasswordField fx:id="txtConfirmPassword" promptText="%fxml.text.register.confirmpassword" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="txtFullName" promptText="%fxml.text.register.fullname" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <TextField fx:id="txtPhone" promptText="%fxml.text.register.phone" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <Button fx:id="btnLogin" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#loginClick" prefHeight="54.0" prefWidth="510.0" styleClass="button-fullwidth" text="%fxml.text.register.submit" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <PasswordField fx:id="txtPassword" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <PasswordField fx:id="txtConfirmPassword" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="txtFullName" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="txtPhone" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Button fx:id="btnRegister" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#registerClick" prefHeight="54.0" prefWidth="510.0" styleClass="button-fullwidth" text="Añadir Usuario" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <TextField text="Username" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
                   <TextField text="Password" GridPane.rowIndex="3" />
                   <TextField text="Confirm Password" GridPane.rowIndex="4" />

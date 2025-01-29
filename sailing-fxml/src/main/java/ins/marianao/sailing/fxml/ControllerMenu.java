@@ -117,6 +117,24 @@ public class ControllerMenu implements Initializable {
 	
 	
 	/**
+	 * Called when New User or Register menuItem is fired.
+	 *
+	 * @param event the action event.
+	 */
+	@FXML
+	public void newUserMenuClick(ActionEvent event) {
+		try {
+			BorderPane vista2 = (BorderPane)FXMLLoader.load(getClass().getResource("ViewFormRegister.fxml"), ResourceManager.getInstance().getTranslationBundle());
+			this.loadView(vista2);
+		} catch (Exception e) {
+			ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
+
+		}
+	}
+	
+	
+	
+	/**
 	 * Called when Booking menuItem is fired.
 	 *
 	 * @param event the action event.
@@ -151,6 +169,7 @@ public class ControllerMenu implements Initializable {
 
 	
 
+<<<<<<< HEAD
 	/**
 	 * Called when New User or Register menuItem is fired.
 	 *
@@ -160,6 +179,9 @@ public class ControllerMenu implements Initializable {
 	public void newUserMenuClick(ActionEvent event) {
 
 	}
+=======
+
+>>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
 
 	/**
 	 * Called when Users directory menuItem is fired.
@@ -299,6 +321,10 @@ public class ControllerMenu implements Initializable {
 		} catch (Exception e) {
 			ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.login"), e.getMessage(), ExceptionUtils.getStackTrace(e));
 		}
+		
+	}
+	
+	public void register(String username, String password, String confirmPassword, String fullName, String phone) {
 		
 	}
 
