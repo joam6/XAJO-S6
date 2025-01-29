@@ -112,15 +112,23 @@ public class ControllerMenu implements Initializable {
 		}
 	}
 	
-	@FXML void registerClick() {
+	
+	/**
+	 * Called when New User or Register menuItem is fired.
+	 *
+	 * @param event the action event.
+	 */
+	@FXML
+	public void newUserMenuClick(ActionEvent event) {
 		try {
-			BorderPane vista = (BorderPane)FXMLLoader.load(getClass().getResource("ViewFormRegister.fxml"), ResourceManager.getInstance().getTranslationBundle());
-			this.loadView(vista);
+			BorderPane vista2 = (BorderPane)FXMLLoader.load(getClass().getResource("ViewFormRegister.fxml"), ResourceManager.getInstance().getTranslationBundle());
+			this.loadView(vista2);
 		} catch (Exception e) {
 			ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
 
 		}
 	}
+	
 	
 	
 	/**
@@ -158,15 +166,7 @@ public class ControllerMenu implements Initializable {
 
 	
 
-	/**
-	 * Called when New User or Register menuItem is fired.
-	 *
-	 * @param event the action event.
-	 */
-	@FXML
-	public void newUserMenuClick(ActionEvent event) {
-		this.openUserForm(null);
-	}
+
 
 	/**
 	 * Called when Users directory menuItem is fired.
