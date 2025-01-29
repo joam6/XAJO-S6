@@ -15,9 +15,13 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 
-public class ControllerTripType extends ControllerMenu {
+public class ControllerTripType implements Initializable {
+	
+	@FXML private BorderPane viewLoginForm;
 
+	
 	 // Text fields
     @FXML private TextField pricefrom;
     @FXML private TextField priceto;
@@ -44,35 +48,15 @@ public class ControllerTripType extends ControllerMenu {
 	@FXML private Menu mnLogin;
 	@FXML private MenuItem mnItLogin;
 	@FXML private MenuItem mnItRegister;
-
-
-
-	  @Override
-	    public void initialize(URL location, ResourceBundle resources) {
-			this.logOff();
-
-	    }
-	  
-		private void logOff() {
-			try {
-				ResourceManager.getInstance().setCurrentUser(null); // Logoff
-
-				// TODO Open trip types view
-
-				this.logoffMenu();
-				
-			} catch (Exception e) {
-				ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
-			}
-		}
+	
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
 		
-		private void logoffMenu() {
-			//this.mnTrips.setVisible(false);
-			this.mnTrips.setVisible(false);
-			this.mnUsers.setVisible(false);
-			this.mnProfile.setVisible(false);
-			this.mnLogin.setVisible(true);
-		}
+	}
+
+
 		
 
 }

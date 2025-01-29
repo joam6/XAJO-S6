@@ -40,6 +40,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -71,6 +72,7 @@ public class ControllerMenu implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
 		this.logOff();
+		this.triptype();
 	}
 
 
@@ -110,6 +112,7 @@ public class ControllerMenu implements Initializable {
 		} catch (Exception e) {
 			ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
 		}
+
 	}
 	
 	
@@ -155,7 +158,7 @@ public class ControllerMenu implements Initializable {
 	 */
 	@FXML
 	public void newUserMenuClick(ActionEvent event) {
-		this.openUserForm(null);
+
 	}
 
 	/**
@@ -242,6 +245,18 @@ public class ControllerMenu implements Initializable {
 		alert.showAndWait();
 	}
 	
+	public void triptype() {
+		try {
+	        // Cargar el controlador de la vista de tipos de viajes (ControllerTripType)
+			VBox vista = (VBox)FXMLLoader.load(getClass().getResource("ViewTripType.fxml"), ResourceManager.getInstance().getTranslationBundle());
+			this.loadView(vista);
+	        
+
+	    } catch (Exception e) {
+	        ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
+	    }
+	}
+	
 	private void logOff() {
 		try {
 			ResourceManager.getInstance().setCurrentUser(null); // Logoff
@@ -270,6 +285,8 @@ public class ControllerMenu implements Initializable {
 
 	            	enableMenu();
 	            	
+	            	triptype();
+	            	
 	            	if (ResourceManager.getInstance().isAdmin()) tripsMenuClick();
 	            	else bookingMenuClick();
 	            }
@@ -282,6 +299,7 @@ public class ControllerMenu implements Initializable {
 		} catch (Exception e) {
 			ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.login"), e.getMessage(), ExceptionUtils.getStackTrace(e));
 		}
+		
 	}
 
 	public void enableMenu() {
@@ -325,17 +343,17 @@ public class ControllerMenu implements Initializable {
 	}
 
 	private boolean checkViewAlreadyLoaded(String id) {
-		if (id == null || this.portviewPane != null || this.portviewPane.getChildren() != null) return false;
+	    if (id == null || this.portviewPane == null || this.portviewPane.getChildren().isEmpty()) return false;
 
-		Iterator<Node> fills = this.portviewPane.getChildren().iterator();
+	    for (Node node : this.portviewPane.getChildren()) {
+	        if (id.equals(node.getId())) {
+	            return true;
+	        }
+	    }
 
-		while (fills.hasNext()) {
-			Node aux = fills.next();
-			if (id.equals(aux.getId())) return true;
-		}
-
-		return false;
+	    return false;
 	}
+
 
 	public void openUserForm(User user) {
 		try {

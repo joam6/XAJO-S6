@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="720.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerTripType">
+  <children>
+      <BorderPane fx:id="appRootPane">
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="pricefrom" layoutX="102.0" layoutY="42.0" prefWidth="101.0" />
+                  <TextField layoutX="13.0" layoutY="42.0" prefWidth="89.0" text="Price form" />
+                  <TextField fx:id="priceto" layoutX="264.0" layoutY="42.0" prefWidth="101.0" />
+                  <TextField layoutX="220.0" layoutY="42.0" prefWidth="44.0" text="To" />
+                  <TextField fx:id="placeto" layoutX="264.0" layoutY="100.0" prefWidth="101.0" />
+                  <TextField layoutX="220.0" layoutY="100.0" prefWidth="44.0" text="To" />
+                  <TextField fx:id="placeform" layoutX="114.0" layoutY="100.0" prefWidth="89.0" />
+                  <TextField layoutX="13.0" layoutY="100.0" prefWidth="101.0" text="Places form" />
+                  <TextField fx:id="durationform" layoutX="515.0" layoutY="100.0" prefWidth="70.0" />
+                  <TextField layoutX="395.0" layoutY="100.0" prefWidth="121.0" text="Duration form" />
+                  <TextField fx:id="durationto" layoutX="657.0" layoutY="100.0" prefWidth="101.0" />
+                  <TextField layoutX="613.0" layoutY="100.0" prefWidth="44.0" text="To" />
+                  <TextField layoutX="395.0" layoutY="42.0" prefWidth="121.0" text="Category" />
+                  <SplitMenuButton fx:id="all" layoutX="516.0" layoutY="42.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="159.0" text="All" textAlignment="CENTER">
+                    <items>
+                      <MenuItem fx:id="Private" mnemonicParsing="false" text="Private" />
+                      <MenuItem fx:id="group" mnemonicParsing="false" text="Group" />
+                    </items>
+                  </SplitMenuButton>
+                  <ScrollPane layoutX="6.0" layoutY="175.0" prefHeight="276.0" prefWidth="900.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="517.0" prefWidth="884.0">
+                           <children>
+                              <TextArea layoutX="17.0" prefHeight="225.0" prefWidth="200.0" />
+                              <Label layoutX="88.0" layoutY="14.0" prefHeight="18.0" prefWidth="78.0" text="GROUP" />
+                              <Label layoutX="33.0" layoutY="38.0" prefHeight="18.0" prefWidth="171.0" text="1 HOUR SAILING TOUR" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="33.0" layoutY="64.0" prefHeight="18.0" prefWidth="159.0" text="1h Sailing Experience" />
+                              <Label layoutX="25.0" layoutY="94.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
+                              <Label layoutX="25.0" layoutY="120.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
+                              <Label layoutX="25.0" layoutY="144.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
+                              <Label layoutX="103.0" layoutY="94.0" prefHeight="18.0" prefWidth="19.0" text="9" />
+                              <Label layoutX="68.0" layoutY="120.0" prefHeight="18.0" prefWidth="44.0" text="30,0€" />
+                              <Label layoutX="94.0" layoutY="144.0" prefHeight="18.0" prefWidth="29.0" text="1h" />
+                              <Label layoutX="36.0" layoutY="169.0" prefHeight="18.0" prefWidth="135.0" text="DEPARTURES" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="87.0" layoutX="117.0" layoutY="187.0" startX="-86.0" />
+                              <Label layoutX="25.0" layoutY="196.0" prefHeight="18.0" prefWidth="38.0" text="9:30" />
+                              <Label layoutX="72.0" layoutY="196.0" prefHeight="18.0" prefWidth="44.0" text="13:30" />
+                              <Label layoutX="127.0" layoutY="196.0" prefHeight="18.0" prefWidth="44.0" text="17:30" />
+                              <TextArea layoutX="16.0" layoutY="250.0" prefHeight="225.0" prefWidth="200.0" />
+                              <Label layoutX="87.0" layoutY="264.0" prefHeight="18.0" prefWidth="78.0" text="GROUP" />
+                              <Label layoutX="32.0" layoutY="288.0" prefHeight="18.0" prefWidth="171.0" text="label" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="32.0" layoutY="314.0" prefHeight="18.0" prefWidth="159.0" text="label" />
+                              <Label layoutX="24.0" layoutY="344.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
+                              <Label layoutX="24.0" layoutY="370.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
+                              <Label layoutX="24.0" layoutY="394.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
+                              <Label layoutX="102.0" layoutY="344.0" prefHeight="18.0" prefWidth="19.0" />
+                              <Label layoutX="67.0" layoutY="370.0" prefHeight="18.0" prefWidth="44.0" />
+                              <Label layoutX="93.0" layoutY="394.0" prefHeight="18.0" prefWidth="29.0" />
+                              <Label layoutX="35.0" layoutY="419.0" prefHeight="18.0" prefWidth="135.0" text="DEPARTURES" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="87.0" layoutX="116.0" layoutY="437.0" startX="-86.0" />
+                              <Label layoutX="24.0" layoutY="446.0" prefHeight="18.0" prefWidth="38.0" text="label" />
+                              <Label layoutX="71.0" layoutY="446.0" prefHeight="18.0" prefWidth="44.0" text="label" />
+                              <Label layoutX="126.0" layoutY="446.0" prefHeight="18.0" prefWidth="44.0" text="label" />
+                              <TextArea layoutX="242.0" prefHeight="225.0" prefWidth="200.0" />
+                              <Label layoutX="315.0" layoutY="12.0" prefHeight="18.0" prefWidth="78.0" text="GROUP" />
+                              <Label layoutX="260.0" layoutY="36.0" prefHeight="18.0" prefWidth="171.0" text="label" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="260.0" layoutY="62.0" prefHeight="18.0" prefWidth="159.0" text="label" />
+                              <Label layoutX="252.0" layoutY="92.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
+                              <Label layoutX="252.0" layoutY="118.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
+                              <Label layoutX="252.0" layoutY="142.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
+                              <Label layoutX="330.0" layoutY="92.0" prefHeight="18.0" prefWidth="19.0" />
+                              <Label layoutX="295.0" layoutY="118.0" prefHeight="18.0" prefWidth="44.0" />
+                              <Label layoutX="321.0" layoutY="142.0" prefHeight="18.0" prefWidth="29.0" />
+                              <Label layoutX="263.0" layoutY="167.0" prefHeight="18.0" prefWidth="135.0" text="DEPARTURES" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="87.0" layoutX="344.0" layoutY="185.0" startX="-86.0" />
+                              <Label layoutX="252.0" layoutY="194.0" prefHeight="18.0" prefWidth="38.0" text="label" />
+                              <Label layoutX="299.0" layoutY="194.0" prefHeight="18.0" prefWidth="44.0" text="label" />
+                              <Label layoutX="354.0" layoutY="194.0" prefHeight="18.0" prefWidth="44.0" text="label" />
+                              <TextArea layoutX="460.0" prefHeight="225.0" prefWidth="200.0" />
+                              <Label layoutX="533.0" layoutY="12.0" prefHeight="18.0" prefWidth="78.0" text="GROUP" />
+                              <Label layoutX="478.0" layoutY="36.0" prefHeight="18.0" prefWidth="171.0" text="label" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="478.0" layoutY="62.0" prefHeight="18.0" prefWidth="159.0" text="label" />
+                              <Label layoutX="470.0" layoutY="92.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
+                              <Label layoutX="470.0" layoutY="118.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
+                              <Label layoutX="470.0" layoutY="142.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
+                              <Label layoutX="548.0" layoutY="92.0" prefHeight="18.0" prefWidth="19.0" />
+                              <Label layoutX="513.0" layoutY="118.0" prefHeight="18.0" prefWidth="44.0" />
+                              <Label layoutX="539.0" layoutY="142.0" prefHeight="18.0" prefWidth="29.0" />
+                              <Label layoutX="481.0" layoutY="167.0" prefHeight="18.0" prefWidth="135.0" text="DEPARTURES" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Line endX="87.0" layoutX="562.0" layoutY="185.0" startX="-86.0" />
+                              <Label layoutX="470.0" layoutY="194.0" prefHeight="18.0" prefWidth="38.0" text="label" />
+                              <Label layoutX="517.0" layoutY="194.0" prefHeight="18.0" prefWidth="44.0" text="label" />
+                              <Label layoutX="572.0" layoutY="194.0" prefHeight="18.0" prefWidth="44.0" text="label" />
+                              <TextArea layoutX="684.0" prefHeight="225.0" prefWidth="200.0" />
+                              <Label layoutX="757.0" layoutY="12.0" prefHeight="18.0" prefWidth="78.0" text="Private" />
+                              <Label layoutX="702.0" layoutY="36.0" prefHeight="18.0" prefWidth="171.0" text="label" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="702.0" layoutY="62.0" prefHeight="18.0" prefWidth="159.0" text="label" />
+                              <Label layoutX="694.0" layoutY="92.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
+                              <Label layoutX="694.0" layoutY="118.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
+                              <Label layoutX="694.0" layoutY="142.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
+                              <Label layoutX="772.0" layoutY="92.0" prefHeight="18.0" prefWidth="19.0" />
+                              <Label layoutX="737.0" layoutY="118.0" prefHeight="18.0" prefWidth="44.0" />
+                              <Label layoutX="763.0" layoutY="142.0" prefHeight="18.0" prefWidth="29.0" />
+                              <TextArea layoutX="239.0" layoutY="250.0" prefHeight="225.0" prefWidth="200.0" />
+                              <Label layoutX="310.0" layoutY="264.0" prefHeight="18.0" prefWidth="78.0" text="Private" />
+                              <Label layoutX="255.0" layoutY="288.0" prefHeight="18.0" prefWidth="171.0" text="label" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="255.0" layoutY="314.0" prefHeight="18.0" prefWidth="159.0" text="label" />
+                              <Label layoutX="247.0" layoutY="344.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
+                              <Label layoutX="247.0" layoutY="370.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
+                              <Label layoutX="247.0" layoutY="394.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
+                              <Label layoutX="325.0" layoutY="344.0" prefHeight="18.0" prefWidth="19.0" />
+                              <Label layoutX="290.0" layoutY="370.0" prefHeight="18.0" prefWidth="44.0" />
+                              <Label layoutX="316.0" layoutY="394.0" prefHeight="18.0" prefWidth="29.0" />
+                              <TextArea layoutX="460.0" layoutY="250.0" prefHeight="225.0" prefWidth="200.0" />
+                              <Label layoutX="531.0" layoutY="264.0" prefHeight="18.0" prefWidth="78.0" text="Private" />
+                              <Label layoutX="476.0" layoutY="288.0" prefHeight="18.0" prefWidth="171.0" text="label" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="476.0" layoutY="314.0" prefHeight="18.0" prefWidth="159.0" text="label" />
+                              <Label layoutX="468.0" layoutY="344.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
+                              <Label layoutX="468.0" layoutY="370.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
+                              <Label layoutX="468.0" layoutY="394.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
+                              <Label layoutX="546.0" layoutY="344.0" prefHeight="18.0" prefWidth="19.0" />
+                              <Label layoutX="511.0" layoutY="370.0" prefHeight="18.0" prefWidth="44.0" />
+                              <Label layoutX="537.0" layoutY="394.0" prefHeight="18.0" prefWidth="29.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="235.0" text="\%fxml.text.app.TripTypes" />
+               </children>
+            </AnchorPane>
+         </center>
+	</BorderPane>
+  </children>
+</VBox>
