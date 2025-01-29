@@ -168,20 +168,7 @@ public class ControllerMenu implements Initializable {
 	}
 
 	
-
-<<<<<<< HEAD
-	/**
-	 * Called when New User or Register menuItem is fired.
-	 *
-	 * @param event the action event.
-	 */
-	@FXML
-	public void newUserMenuClick(ActionEvent event) {
-
-	}
-=======
-
->>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
+//github.com/joam6/XAJO-S6.git
 
 	/**
 	 * Called when Users directory menuItem is fired.
