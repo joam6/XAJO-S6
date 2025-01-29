@@ -19,18 +19,18 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
                   <TextField fx:id="pricefrom" layoutX="102.0" layoutY="42.0" prefWidth="101.0" />
-                  <TextField layoutX="13.0" layoutY="42.0" prefWidth="89.0" text="Price form" />
+                  <TextField editable="false" layoutX="13.0" layoutY="42.0" prefWidth="89.0" text="Price form" />
                   <TextField fx:id="priceto" layoutX="264.0" layoutY="42.0" prefWidth="101.0" />
-                  <TextField layoutX="220.0" layoutY="42.0" prefWidth="44.0" text="To" />
+                  <TextField editable="false" layoutX="220.0" layoutY="42.0" prefWidth="44.0" text="To" />
                   <TextField fx:id="placeto" layoutX="264.0" layoutY="100.0" prefWidth="101.0" />
-                  <TextField layoutX="220.0" layoutY="100.0" prefWidth="44.0" text="To" />
+                  <TextField editable="false" layoutX="220.0" layoutY="100.0" prefWidth="44.0" text="To" />
                   <TextField fx:id="placeform" layoutX="114.0" layoutY="100.0" prefWidth="89.0" />
-                  <TextField layoutX="13.0" layoutY="100.0" prefWidth="101.0" text="Places form" />
+                  <TextField editable="false" layoutX="13.0" layoutY="100.0" prefWidth="101.0" text="Places form" />
                   <TextField fx:id="durationform" layoutX="515.0" layoutY="100.0" prefWidth="70.0" />
-                  <TextField layoutX="395.0" layoutY="100.0" prefWidth="121.0" text="Duration form" />
+                  <TextField editable="false" layoutX="395.0" layoutY="100.0" prefWidth="121.0" text="Duration form" />
                   <TextField fx:id="durationto" layoutX="657.0" layoutY="100.0" prefWidth="101.0" />
-                  <TextField layoutX="613.0" layoutY="100.0" prefWidth="44.0" text="To" />
-                  <TextField layoutX="395.0" layoutY="42.0" prefWidth="121.0" text="Category" />
+                  <TextField editable="false" layoutX="613.0" layoutY="100.0" prefWidth="44.0" text="To" />
+                  <TextField editable="false" layoutX="395.0" layoutY="42.0" prefWidth="121.0" text="Category" />
                   <SplitMenuButton fx:id="all" layoutX="516.0" layoutY="42.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="159.0" text="All" textAlignment="CENTER">
                     <items>
                       <MenuItem fx:id="Private" mnemonicParsing="false" text="Private" />
