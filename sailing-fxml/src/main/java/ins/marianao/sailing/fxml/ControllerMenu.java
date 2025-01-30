@@ -159,8 +159,7 @@ public class ControllerMenu implements Initializable {
 	public void tripsMenuClick() {
 		try {
 			// TODO Open trips view. Remove empty view 
-			BorderPane vista = new BorderPane();
-
+			VBox vista = (VBox)FXMLLoader.load(getClass().getResource("ViewTrip.fxml"), ResourceManager.getInstance().getTranslationBundle());
 			this.loadView(vista);
 		} catch (Exception e) {
 			ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));

@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane fx:id="viewFormRegister" prefHeight="540.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerFormRegister">
+<BorderPane fx:id="viewFormRegister" prefHeight="540.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerFormRegister">
    <top>
       <AnchorPane BorderPane.alignment="CENTER">
          <children>
@@ -57,6 +57,7 @@
                   <TextField text="Full Name" GridPane.rowIndex="5" />
                   <TextField text="Phone" GridPane.rowIndex="6" />
                   <TextField text="User Type" GridPane.rowIndex="1" />
+                  <Label prefHeight="18.0" prefWidth="235.0" text="REGISTER" />
 
                   	</children>
             </GridPane>

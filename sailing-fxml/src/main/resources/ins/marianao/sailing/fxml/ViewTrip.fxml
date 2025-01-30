@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="720.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerTrip">
+  <children>
+      <BorderPane fx:id="viewTripForm">
+         <bottom>
+            <AnchorPane prefHeight="197.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField editable="false" layoutX="16.0" layoutY="68.0" prefWidth="89.0" text="Client" />
+                  <TextField editable="false" layoutX="409.0" layoutY="128.0" prefWidth="66.0" text="From" />
+                  <TextField editable="false" layoutX="667.0" layoutY="128.0" prefWidth="44.0" text="To" />
+                  <TextField editable="false" layoutX="14.0" layoutY="128.0" prefWidth="86.0" text="Category" />
+                  <SplitMenuButton fx:id="categorySelector" layoutX="100.0" layoutY="128.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="All" textAlignment="CENTER">
+                    <items>
+                      <MenuItem fx:id="Private" mnemonicParsing="false" text="Private" />
+                      <MenuItem fx:id="Group" mnemonicParsing="false" text="Group" />
+                    </items>
+                  </SplitMenuButton>
+                  <SplitMenuButton fx:id="clientSelector" layoutX="105.0" layoutY="68.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="319.0" textAlignment="CENTER" />
+                  <TextField editable="false" layoutX="223.0" layoutY="128.0" prefWidth="61.0" text="Status" />
+                  <SplitMenuButton fx:id="statusSelector" layoutX="284.0" layoutY="128.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="110.0" text="All" textAlignment="CENTER">
+                     <items>
+                        <MenuItem fx:id="Reserved" mnemonicParsing="false" text="Reserved" />
+                        <MenuItem fx:id="Done" mnemonicParsing="false" text="Done" />
+                        <MenuItem fx:id="Cancelled" mnemonicParsing="false" text="Cancelled" />
+                     </items>
+                  </SplitMenuButton>
+                  <Label layoutX="16.0" layoutY="14.0" prefHeight="46.0" prefWidth="194.0" text="TRIPS">
+                     <font>
+                        <Font size="48.0" />
+                     </font></Label>
+                  <DatePicker fx:id="fromDate" layoutX="475.0" layoutY="128.0" prefHeight="40.0" prefWidth="180.0" />
+                  <DatePicker fx:id="toDate" layoutX="711.0" layoutY="128.0" prefHeight="40.0" prefWidth="180.0" />
+               </children>
+            </AnchorPane>
+         </bottom>
+	</BorderPane>
+      <TableView prefHeight="537.0" prefWidth="900.0">
+        <columns>
+          <TableColumn editable="false" prefWidth="39.0" resizable="false" text="#" />
+          <TableColumn editable="false" prefWidth="750.0" resizable="false" text="Client" />
+            <TableColumn editable="false" minWidth="0.0" prefWidth="109.0" resizable="false" text="Category" />
+            <TableColumn editable="false" prefWidth="75.0" resizable="false" text="Title" />
+            <TableColumn editable="false" prefWidth="38.0" resizable="false" text="Max" />
+            <TableColumn editable="false" prefWidth="64.0" resizable="false" text="Booked" />
+            <TableColumn editable="false" prefWidth="68.0" resizable="false" text="Status" />
+            <TableColumn editable="false" prefWidth="72.0" resizable="false" text="Date" />
+            <TableColumn editable="false" prefWidth="88.0" resizable="false" text="Departure" />
+            <TableColumn editable="false" prefWidth="54.0" resizable="false" text="Places" />
+            <TableColumn editable="false" prefWidth="90.0" resizable="false" text="Comments" />
+            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
+            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
+            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
+        </columns>
+      </TableView>
+  </children>
+</VBox>
