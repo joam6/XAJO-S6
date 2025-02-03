@@ -225,24 +225,33 @@ public class ControllerUsersDirectory extends AbstractControllerPDF {
 		
 		if (role != null) roles = new Role[] { Role.valueOf(role.getKey()) };
 		
+	    // Desactivar la edición de la tabla mientras cargamos los datos
 		final ServiceQueryUsers queryUsers = new ServiceQueryUsers(roles, search);
 		
+	    // Crear el servicio con los filtros
 		queryUsers.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 
+		    // Definir lo que sucede cuando la tarea se completa exitosamente
             @Override
             public void handle(WorkerStateEvent t) {
+                // Rehabilitar la edición de la tabla
             	usersTable.setEditable(true);
             	
+                // Limpiar la tabla antes de agregar los nuevos elementos
             	usersTable.getItems().clear();
             	
+                // Obtener la lista de tipos de viaje desde el servicio
                 ObservableList<User> users = FXCollections.observableArrayList(queryUsers.getValue());
 
+                // Establecer los elementos de la tabla
         		usersTable.setItems( users );
             }
         });
 		
+	    // Definir lo que sucede cuando la tarea falla
 		queryUsers.setOnFailed(new OnFailedEventHandler(ResourceManager.getInstance().getText("error.viewUsers.web.service")));
 		
+	    // Iniciar la consulta
 		queryUsers.start();
 	}
 	

@@ -5,8 +5,13 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
 import cat.institutmarianao.sailing.ws.model.TripType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -71,6 +76,44 @@ public class ControllerTripType implements Initializable {
 		
 		
 	}
+	private void reloadTripTypes() {
+	    // Obtener los filtros de la interfaz de usuario
+	    String category = this.cmbCategory.getValue();      // Filtro de categoría
+	    Double price = this.txtPriceSearch.getText().isEmpty() ? null : Double.valueOf(this.txtPriceSearch.getText());  // Filtro de precio
+	    Integer duration = this.txtDurationSearch.getText().isEmpty() ? null : Integer.valueOf(this.txtDurationSearch.getText());  // Filtro de duración
+	    Integer maxPlaces = this.txtMaxPlacesSearch.getText().isEmpty() ? null : Integer.valueOf(this.txtMaxPlacesSearch.getText());  // Filtro de plazas
+
+	    // Desactivar la edición de la tabla mientras cargamos los datos
+	    this.tripTypeTable.setEditable(false);
+
+	    // Crear el servicio con los filtros
+	    final ServiceQueryTripTypes queryTripTypes = new ServiceQueryTripTypes(category, price, duration, maxPlaces);
+
+	    // Definir lo que sucede cuando la tarea se completa exitosamente
+	    queryTripTypes.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	        @Override
+	        public void handle(WorkerStateEvent t) {
+	            // Rehabilitar la edición de la tabla
+	        	tripTypeTable.setEditable(true);
+
+	            // Limpiar la tabla antes de agregar los nuevos elementos
+	            tripTypeTable.getItems().clear();
+
+	            // Obtener la lista de tipos de viaje desde el servicio
+	            ObservableList<TripType> tripTypes = FXCollections.observableArrayList(queryTripTypes.getValue());
+
+	            // Establecer los elementos de la tabla
+	            tripTypeTable.setItems(tripTypes);
+	        }
+	    });
+
+	    // Definir lo que sucede cuando la tarea falla
+	    queryTripTypes.setOnFailed(new OnFailedEventHandler("Error al obtener los tipos de viaje"));
+
+	    // Iniciar la consulta
+	    queryTripTypes.start();
+	}
+
 
 
 		
