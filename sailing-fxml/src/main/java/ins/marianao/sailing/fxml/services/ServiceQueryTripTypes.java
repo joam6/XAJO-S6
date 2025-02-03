@@ -3,6 +3,9 @@ package ins.marianao.sailing.fxml.services;
 import java.util.List;
 
 import cat.institutmarianao.sailing.ws.model.TripType;
+import cat.institutmarianao.sailing.ws.model.TripType.Category;
+
+import ins.marianao.sailing.fxml.manager.ResourceManager;
 
 public class ServiceQueryTripTypes extends ServiceQueryBase<TripType> {
 	
