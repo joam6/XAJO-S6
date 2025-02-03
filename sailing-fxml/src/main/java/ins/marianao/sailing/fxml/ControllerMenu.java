@@ -97,6 +97,8 @@ public class ControllerMenu implements Initializable {
 	public void logoffClick(ActionEvent event) {
 
 		this.logOff();
+		this.triptype();
+		
 	}
 
 	/**
