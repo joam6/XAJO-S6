@@ -7,6 +7,7 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
+import ins.marianao.sailing.fxml.services.ServiceQueryTripTypes;
 import cat.institutmarianao.sailing.ws.model.TripType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
