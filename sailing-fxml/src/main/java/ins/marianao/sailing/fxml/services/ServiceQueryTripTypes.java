@@ -1,38 +1,40 @@
 package ins.marianao.sailing.fxml.services;
 
+import java.util.LinkedList;
 import java.util.List;
-
 import cat.institutmarianao.sailing.ws.model.TripType;
-import cat.institutmarianao.sailing.ws.model.TripType.Category;
-
 import ins.marianao.sailing.fxml.manager.ResourceManager;
+import jakarta.ws.rs.ProcessingException;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.client.Invocation;
+import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.client.ResponseProcessingException;
+import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.Response;
 
 public class ServiceQueryTripTypes extends ServiceQueryBase<TripType> {
-	
-	private int Id;
-	private String Category;
-	private String Departures;
-	private String Description;
-	private int Duration;
-	private int Places;
-	private int Price;
-	private String Title;
-	
-	public ServiceQueryTripTypes(int Id, String Category, String Description, int Duration, int Places, int Price, String Title) {
-		this.Id = Id;
-		this.Category = Category;
-		this.Departures = Departures;
-		this.Description = Description;
-		this.Duration = Duration;
-		this.Places = Places;
-		this.Price = Price;
-		this.Title = Title;
-	}
-	
-	@Override
-	protected List<TripType> customCall() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    
+    public ServiceQueryTripTypes() {
+        super();
+    }
 
+    @Override
+    protected List<TripType> customCall() throws Exception {
+        WebTarget webTarget = ClientBuilder.newClient().target("http://api.example.com/trips");
+        Invocation.Builder invocationBuilder = ResourceManager.getInstance().getAuthRequestBuilder(webTarget, true);
+        List<TripType> tripTypes = new LinkedList<>();
+
+        try {
+            Response response = invocationBuilder.get();
+            ResourceManager.getInstance().checkResponseErrors(response);
+            tripTypes = response.readEntity(new GenericType<List<TripType>>(){});
+        } catch (ProcessingException e) {
+            e.printStackTrace();
+            throw new Exception(ResourceManager.getInstance().getText("error.service.processing") + " " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        }
+        return tripTypes;
+    }
 }
