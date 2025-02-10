@@ -20,7 +20,7 @@ public class ServiceQueryTripTypes extends ServiceQueryBase<TripType> {
 
     @Override
     protected List<TripType> customCall() throws Exception {
-        WebTarget webTarget = ClientBuilder.newClient().target("http://api.example.com/trips");
+        WebTarget webTarget = ClientBuilder.newClient().target("http://localhost:8443/api/trips");
         Invocation.Builder invocationBuilder = ResourceManager.getInstance().getAuthRequestBuilder(webTarget, true);
         List<TripType> tripTypes = new LinkedList<>();
 

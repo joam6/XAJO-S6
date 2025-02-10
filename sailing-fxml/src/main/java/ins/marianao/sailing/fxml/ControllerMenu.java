@@ -15,6 +15,7 @@ import cat.institutmarianao.sailing.ws.model.User;
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
 import ins.marianao.sailing.fxml.services.ServiceAuthenticate;
+import ins.marianao.sailing.fxml.services.ServiceSaveBase;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -311,10 +312,43 @@ public class ControllerMenu implements Initializable {
 		}
 		
 	}
-	
 	public void register(String username, String password, String confirmPassword, String fullName, String phone) {
-		
+	    try {
+	        final ServiceAuthenticate register = new ServiceAuthenticate(username, password);
+	        
+	        register.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	            @Override
+	            public void handle(WorkerStateEvent event) {
+	                //se obtiene la respuesta del registro
+	                Pair<User, String> registerResponse = register.getValue();
+	                
+	                //se guarda la información del usuario y el token
+	                ResourceManager.getInstance().setCurrentUser(registerResponse.getKey());
+	                ResourceManager.getInstance().setCurrentToken(registerResponse.getValue());
+
+	                //hacer visible el menú
+	                enableMenu();
+
+	                //redirigir al formulario de login
+	                loginMenuClick();
+
+	                //redirigir al menú correspondiente dependiendo del rol
+	                if (ResourceManager.getInstance().isAdmin()) {
+	                    tripsMenuClick();
+	                } else {
+	                    bookingMenuClick();
+	                }
+	            }
+	        });
+
+	        //iniciar el proceso de registro
+	        register.start();
+	        
+	    } catch (Exception e) {
+	        ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.login"), e.getMessage(), ExceptionUtils.getStackTrace(e));
+	    }
 	}
+
 
 	public void enableMenu() {
 		this.mnTrips.setVisible(true);
