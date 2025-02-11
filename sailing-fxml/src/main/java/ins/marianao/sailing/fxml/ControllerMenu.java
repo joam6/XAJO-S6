@@ -312,7 +312,7 @@ public class ControllerMenu implements Initializable {
 		}
 		
 	}
-	public void register(String username, String password, String confirmPassword, String fullName, String phone) {
+	public void register(String usertype, String username, String password, String confirmPassword, String fullName, String phone) {
 	    try {
 	        final ServiceAuthenticate register = new ServiceAuthenticate(username, password);
 	        
