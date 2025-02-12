@@ -6,7 +6,7 @@ import ins.marianao.sailing.fxml.services.ServiceSaveBase.Method;
 
 public class ServiceSaveUser extends ServiceSaveBase<User> {
 
-    private static final String PATH_SAVE_USER = "/user/save";
+    private static final String PATH_SAVE_USER = "user/save";
 
     /**
      * Constructor principal para crear una solicitud de registro de usuario.

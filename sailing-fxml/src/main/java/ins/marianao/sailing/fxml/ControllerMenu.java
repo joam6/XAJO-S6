@@ -11,11 +11,14 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import cat.institutmarianao.sailing.ws.model.Admin;
+import cat.institutmarianao.sailing.ws.model.Client;
 import cat.institutmarianao.sailing.ws.model.User;
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
 import ins.marianao.sailing.fxml.services.ServiceAuthenticate;
 import ins.marianao.sailing.fxml.services.ServiceSaveBase;
+import ins.marianao.sailing.fxml.services.ServiceSaveUser;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -312,27 +315,51 @@ public class ControllerMenu implements Initializable {
 		}
 		
 	}
-	public void register(String usertype, String username, String password, String confirmPassword, String fullName, String phone) {
+	public void register(String username, String password, String confirmPassword, String fullName, Integer phone, User.Role role) {
 	    try {
+	        // Validar que las contraseñas coincidan
+	        if (!password.equals(confirmPassword)) {
+	            throw new IllegalArgumentException("Las contraseñas no coinciden.");
+	        }
+
+	        // Crear el nuevo usuario según el rol
+	        User newUser;
+	        if (role == User.Role.ADMIN) {
+	            newUser = Admin.builder()
+	                           .username(username)
+	                           .password(password)
+	                           .role(role)
+	                           .build();
+	        } else if (role == User.Role.CLIENT) {
+	            newUser = Client.builder()
+	                            .username(username)
+	                            .password(password)
+	                            .fullName(fullName)
+	                            .phone(phone)
+	                            .role(role)
+	                            .build();
+	        } else {
+	            throw new IllegalArgumentException("Rol de usuario no válido.");
+	        }
+
+	        // Iniciar el proceso de registro
 	        final ServiceAuthenticate register = new ServiceAuthenticate(username, password);
-	        
+
 	        register.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	            @Override
 	            public void handle(WorkerStateEvent event) {
-	                //se obtiene la respuesta del registro
+	                // Obtener la respuesta del registro
 	                Pair<User, String> registerResponse = register.getValue();
-	                
-	                //se guarda la información del usuario y el token
+
+	                // Guardar la información del usuario y el token
 	                ResourceManager.getInstance().setCurrentUser(registerResponse.getKey());
 	                ResourceManager.getInstance().setCurrentToken(registerResponse.getValue());
 
-	                //hacer visible el menú
+	                // Habilitar el menú y redirigir al formulario de login
 	                enableMenu();
-
-	                //redirigir al formulario de login
 	                loginMenuClick();
 
-	                //redirigir al menú correspondiente dependiendo del rol
+	                // Redirigir al menú correspondiente dependiendo del rol
 	                if (ResourceManager.getInstance().isAdmin()) {
 	                    tripsMenuClick();
 	                } else {
@@ -341,11 +368,20 @@ public class ControllerMenu implements Initializable {
 	            }
 	        });
 
-	        //iniciar el proceso de registro
+	        // Iniciar el servicio para guardar el nuevo usuario
+	        final ServiceSaveUser saveUser = new ServiceSaveUser(newUser);
+	        saveUser.start();
+
+	        // Iniciar el proceso de registro
 	        register.start();
-	        
+
 	    } catch (Exception e) {
-	        ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.login"), e.getMessage(), ExceptionUtils.getStackTrace(e));
+	        // Mostrar un mensaje de error en caso de fallo
+	        ControllerMenu.showError(
+	            ResourceManager.getInstance().getText("error.menu.login"), 
+	            e.getMessage(), 
+	            ExceptionUtils.getStackTrace(e)
+	        );
 	    }
 	}
 
