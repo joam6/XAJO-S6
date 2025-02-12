@@ -2,6 +2,8 @@ package ins.marianao.sailing.fxml.services;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import cat.institutmarianao.sailing.ws.model.Trip;
 import cat.institutmarianao.sailing.ws.model.TripType;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
 import jakarta.ws.rs.ProcessingException;
@@ -18,7 +20,13 @@ public class ServiceQueryTrip extends ServiceQueryBase<TripType> {
         super();
     }
 
-    @Override
+	@Override
+	protected List<TripType> customCall() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+   /* @Override
     protected List<Trip> customCall() throws Exception {
         WebTarget webTarget = ClientBuilder.newClient().target("http://localhost:8443/api/trips");
         Invocation.Builder invocationBuilder = ResourceManager.getInstance().getAuthRequestBuilder(webTarget, true);
@@ -36,5 +44,5 @@ public class ServiceQueryTrip extends ServiceQueryBase<TripType> {
             throw e;
         }
         return trip;
-    }
+    }*/
 }
