@@ -20,7 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.Pair;
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
-import ins.marianao.sailing.fxml.services.ServiceQueryTripTypes;
+import ins.marianao.sailing.fxml.services.ServiceQueryTripType;
 import ins.marianao.sailing.fxml.services.ServiceQueryUsers;
 import cat.institutmarianao.sailing.ws.model.TripType;
 import cat.institutmarianao.sailing.ws.model.User;
