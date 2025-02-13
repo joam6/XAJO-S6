@@ -2,6 +2,9 @@ package ins.marianao.sailing.fxml;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.WorkerStateEvent;
@@ -12,10 +15,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Pair;
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
+import ins.marianao.sailing.fxml.manager.ResourceManager;
 import ins.marianao.sailing.fxml.services.ServiceQueryTripTypes;
+import ins.marianao.sailing.fxml.services.ServiceQueryUsers;
 import cat.institutmarianao.sailing.ws.model.TripType;
+import cat.institutmarianao.sailing.ws.model.User;
+import cat.institutmarianao.sailing.ws.model.User.Role;
 
 public class ControllerTripType implements Initializable {
 
@@ -33,58 +42,56 @@ public class ControllerTripType implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resource) {
         // Configurar las columnas de la tabla
-        configureTableColumns();
 
-        // Recargar los tipos de viaje al inicializar el controlador
-        reloadTripTypes();
+    	
+    	
+        this.colCategoria.setCellValueFactory(new PropertyValueFactory<TripType,String>("Category"));
+        this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
+        /* DIFERENCIAR CATEGORIA PRIVADO / GRUPO 
+         * public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
+                String key = cellData.getValue().getRole().toString();
+                return new SimpleStringProperty(resource.getString("text.User."+key)); // Muestra el nombre del rol en texto
+            }
+         */
+        this.colDepartures.setCellValueFactory(new PropertyValueFactory<TripType,String>("Departures"));
+        this.colDescription.setCellValueFactory(new PropertyValueFactory<TripType,String>("Description"));
+        this.colDuration.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Duration"));
+        this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Places"));
+        this.colPrecio.setCellValueFactory(new PropertyValueFactory<TripType,Float>("Duration"));
+        this.colTitulo.setCellValueFactory(new PropertyValueFactory<TripType,String>("Title"));
+
+
     }
-
-    /**
-     * Configura las columnas de la tabla para que muestren los datos correspondientes del modelo TripType.
-     */
-    private void configureTableColumns() {
-        colID.setCellValueFactory(new PropertyValueFactory<>("id")); // ID del tipo de viaje
-        colCategoria.setCellValueFactory(new PropertyValueFactory<>("category")); // Categoría (GROUP/PRIVATE)
-        colDepartures.setCellValueFactory(new PropertyValueFactory<>("departures")); // Horarios disponibles
-        colDescription.setCellValueFactory(new PropertyValueFactory<>("description")); // Descripción
-        colDuration.setCellValueFactory(new PropertyValueFactory<>("duration")); // Duración en horas
-        colMaxPlaza.setCellValueFactory(new PropertyValueFactory<>("maxPlaces")); // Máximo número de plazas
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("price")); // Precio
-        colTitulo.setCellValueFactory(new PropertyValueFactory<>("title")); // Título
-    }
-
-    /**
-     * Recarga los tipos de viaje desde el servicio y actualiza la tabla.
-     */
+    
     private void reloadTripTypes() {
-        // Crear una instancia del servicio para consultar los tipos de viaje
-        final ServiceQueryTripTypes queryTripTypes = new ServiceQueryTripTypes(null, null); // Sin filtros
+        Role[] roles = null;
+        Pair<String,String> role = this.cmbRole.getValue();
+        String search = this.txtFullnameSearch.getText();
 
-        // Manejar el evento cuando la consulta se completa exitosamente
-        queryTripTypes.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        this.TripTypeTable.setEditable(false); // Desactivar la edición de la tabla mientras se cargan los datos
+
+        // Aplicar el filtro de roles si es necesario
+        if (role != null) roles = new Role[] { Role.valueOf(role.getKey()) };
+
+        final ServiceQueryUsers queryUsers = new ServiceQueryUsers(roles, search);
+
+        // Iniciar la consulta para obtener los usuarios
+        queryUsers.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent t) {
-                // Limpiar los elementos actuales de la tabla
-                tripTypeTable.getItems().clear();
+                TripTypeTable.setEditable(true); // Reactivar la edición cuando la consulta se complete
+                TripTypeTable.getItems().clear(); // Limpiar la tabla
 
-                // Convertir el resultado en una lista observable y asignarlo a la tabla
-                ObservableList<TripType> tripTypes = FXCollections.observableArrayList(queryTripTypes.getValue());
-                tripTypeTable.setItems(tripTypes);
+                ObservableList<User> users = FXCollections.observableArrayList(queryUsers.getValue()); // Obtener los usuarios
+                TripTypeTable.setItems(users); // Establecer los usuarios en la tabla
             }
         });
 
-        // Manejar errores en caso de fallo en la consulta
-        queryTripTypes.setOnFailed(new OnFailedEventHandler("Error al obtener los tipos de viaje"));
+        // Definir lo que sucede si la consulta falla
+        queryUsers.setOnFailed(new OnFailedEventHandler(ResourceManager.getInstance().getText("error.viewUsers.web.service")));
 
-        // Iniciar la tarea de consulta
-        queryTripTypes.start();
+        queryUsers.start(); // Iniciar la consulta
     }
 
-    /**
-     * Método para recargar los tipos de viaje manualmente (por ejemplo, al hacer clic en un botón).
-     */
-    @FXML
-    private void onReloadButton(ActionEvent event) {
-        reloadTripTypes();
-    }
+    
 }

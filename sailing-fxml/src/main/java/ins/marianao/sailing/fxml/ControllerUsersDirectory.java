@@ -107,6 +107,8 @@ public class ControllerUsersDirectory extends AbstractControllerPDF {
         // Configuración de la columna de índice (número de fila)
         this.colIndex.setMinWidth(40);
         this.colIndex.setMaxWidth(60);
+        
+        // Cuenta numero de ROWs en la tabla
         this.colIndex.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Number>, ObservableValue<Number>>() {
             @Override
             public ObservableValue<Number> call(TableColumn.CellDataFeatures<User, Number> usuari) {
@@ -117,6 +119,8 @@ public class ControllerUsersDirectory extends AbstractControllerPDF {
         // Configuración de la columna de rol
         this.colRole.setMinWidth(100);
         this.colRole.setMaxWidth(140);
+        
+        //DEFINIR SI EL USUARIO ES ADMIN / CLIENTE EN LA TABLA
         this.colRole.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
@@ -137,6 +141,8 @@ public class ControllerUsersDirectory extends AbstractControllerPDF {
         // Configuración de la columna de nombre completo (solo clientes)
         this.colFullname.setMinWidth(200);
         this.colFullname.setMaxWidth(Double.MAX_VALUE);
+        
+        //DEFINIR EL NOMBRE COMPLETO DEL USUARIO 
         this.colFullname.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> user) {

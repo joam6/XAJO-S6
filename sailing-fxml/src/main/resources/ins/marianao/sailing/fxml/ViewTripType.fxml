@@ -2,15 +2,13 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitMenuButton?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
 
 <VBox fx:id="viewTripType" prefHeight="720.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerTripType">
   <children>
@@ -37,41 +35,21 @@
                       <MenuItem fx:id="group" mnemonicParsing="false" text="Group" />
                     </items>
                   </SplitMenuButton>
-                  <ScrollPane layoutX="6.0" layoutY="175.0" prefHeight="276.0" prefWidth="900.0">
-                    <content>
-                      <AnchorPane prefHeight="517.0" prefWidth="884.0">
-                           <children>
-                              <TextArea layoutX="17.0" prefHeight="225.0" prefWidth="200.0" />
-                              <Label layoutX="88.0" layoutY="14.0" prefHeight="18.0" prefWidth="78.0" text="GROUP" />
-                              <Label layoutX="33.0" layoutY="38.0" prefHeight="18.0" prefWidth="171.0" text="1 HOUR SAILING TOUR" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="33.0" layoutY="64.0" prefHeight="18.0" prefWidth="159.0" text="1h Sailing Experience" />
-                              <Label layoutX="25.0" layoutY="94.0" prefHeight="18.0" prefWidth="78.0" text="Max Place:" />
-                              <Label layoutX="25.0" layoutY="120.0" prefHeight="18.0" prefWidth="50.0" text="Price:" />
-                              <Label layoutX="25.0" layoutY="144.0" prefHeight="18.0" prefWidth="70.0" text="Duration:" />
-                              <Label layoutX="103.0" layoutY="94.0" prefHeight="18.0" prefWidth="19.0" text="9" />
-                              <Label layoutX="68.0" layoutY="120.0" prefHeight="18.0" prefWidth="44.0" text="30,0€" />
-                              <Label layoutX="94.0" layoutY="144.0" prefHeight="18.0" prefWidth="29.0" text="1h" />
-                              <Label layoutX="36.0" layoutY="169.0" prefHeight="18.0" prefWidth="135.0" text="DEPARTURES" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="36.0" />
-                                 </font>
-                              </Label>
-                              <Line endX="87.0" layoutX="117.0" layoutY="187.0" startX="-86.0" />
-                              <Label layoutX="25.0" layoutY="196.0" prefHeight="18.0" prefWidth="38.0" text="9:30" />
-                              <Label layoutX="72.0" layoutY="196.0" prefHeight="18.0" prefWidth="44.0" text="13:30" />
-                              <Label layoutX="127.0" layoutY="196.0" prefHeight="18.0" prefWidth="44.0" text="17:30" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
                   <Label layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="235.0" text="\%fxml.text.app.TripTypes" />
                </children>
             </AnchorPane>
          </center>
 	</BorderPane>
+      <TableView prefHeight="252.0" prefWidth="823.0">
+         <columns>
+            <TableColumn fx:id="colCategoria" prefWidth="98.0" text="CATEGORIA" />
+            <TableColumn fx:id="colTitulo" prefWidth="204.0" text="TITULO" />
+            <TableColumn fx:id="colDescription" prefWidth="259.0" text="DESCRIPCION" />
+            <TableColumn fx:id="colMaxPlaza" prefWidth="68.0" text="PLAZAS" />
+            <TableColumn fx:id="colPrecio" prefWidth="68.0" text="PRECIO" />
+            <TableColumn fx:id="colDuration" prefWidth="92.0" text="DURACION" />
+            <TableColumn fx:id="colDepartures" prefWidth="110.0" text="DEPARTURES" />
+         </columns>
+      </TableView>
   </children>
 </VBox>
