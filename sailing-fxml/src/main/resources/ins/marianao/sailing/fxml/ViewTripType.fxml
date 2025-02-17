@@ -35,7 +35,7 @@
                         <HBox styleClass="input-group" HBox.hgrow="ALWAYS">  
                            <children>  
                               <Label text="Price from" HBox.hgrow="ALWAYS" />  
-                              <TextField HBox.hgrow="ALWAYS" />  
+                              <TextField fx:id="priceFrom" HBox.hgrow="ALWAYS" />  
                            </children>
                            <GridPane.margin>
                               <Insets left="5.0" />
@@ -44,7 +44,7 @@
                         <HBox styleClass="input-group" GridPane.rowIndex="1" HBox.hgrow="ALWAYS">  
                            <children>  
                               <Label text="Places from" HBox.hgrow="ALWAYS" />  
-                              <TextField HBox.hgrow="ALWAYS" />  
+                              <TextField fx:id="placeFrom" HBox.hgrow="ALWAYS" />  
                            </children>
                            <GridPane.margin>
                               <Insets left="5.0" />
@@ -53,7 +53,7 @@
                         <HBox styleClass="input-group" GridPane.columnIndex="1" HBox.hgrow="ALWAYS">  
                            <children>  
                               <Label maxWidth="-Infinity" text="To" HBox.hgrow="ALWAYS" />  
-                              <TextField HBox.hgrow="ALWAYS" />  
+                              <TextField fx:id="priceTo" HBox.hgrow="ALWAYS" />  
                            </children>
                            <GridPane.margin>
                               <Insets left="5.0" />
@@ -62,7 +62,7 @@
                         <HBox styleClass="input-group" GridPane.columnIndex="1" GridPane.rowIndex="1" HBox.hgrow="ALWAYS">  
                            <children>  
                               <Label text="To" HBox.hgrow="ALWAYS" />  
-                              <TextField HBox.hgrow="ALWAYS" />  
+                              <TextField fx:id="placeTo" HBox.hgrow="ALWAYS" />  
                            </children>
                            <GridPane.margin>
                               <Insets left="5.0" />
@@ -71,7 +71,7 @@
                         <HBox styleClass="input-group" GridPane.columnIndex="2" HBox.hgrow="ALWAYS">  
                            <children>  
                               <Label text="Category" HBox.hgrow="ALWAYS" />  
-                              <ComboBox HBox.hgrow="ALWAYS" />  
+                              <ComboBox fx:id="categorySelect" HBox.hgrow="ALWAYS" />  
                            </children>
                            <GridPane.margin>
                               <Insets left="5.0" />
@@ -82,13 +82,13 @@
                               <HBox styleClass="input-group" HBox.hgrow="ALWAYS">  
                                  <children>  
                                     <Label text="Duration from" HBox.hgrow="ALWAYS" />  
-                                    <TextField HBox.hgrow="ALWAYS" />  
+                                    <TextField fx:id="durationFrom" HBox.hgrow="ALWAYS" />  
                                  </children>  
                               </HBox>  
                               <HBox styleClass="input-group" HBox.hgrow="ALWAYS">  
                                  <children>  
                                     <Label text="To" HBox.hgrow="ALWAYS" />  
-                                    <TextField HBox.hgrow="ALWAYS" />  
+                                    <TextField fx:id="durationTo" HBox.hgrow="ALWAYS" />  
                                  </children>
                                  <padding>
                                     <Insets left="5.0" />
