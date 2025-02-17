@@ -50,7 +50,7 @@
       <TableView prefHeight="537.0" prefWidth="900.0">
         <columns>
           <TableColumn editable="false" prefWidth="39.0" resizable="false" text="#" />
-          <TableColumn editable="false" prefWidth="750.0" resizable="false" text="Client" />
+          <TableColumn editable="false" prefWidth="250.0" resizable="false" text="Client" />
             <TableColumn editable="false" minWidth="0.0" prefWidth="109.0" resizable="false" text="Category" />
             <TableColumn editable="false" prefWidth="75.0" resizable="false" text="Title" />
             <TableColumn editable="false" prefWidth="38.0" resizable="false" text="Max" />

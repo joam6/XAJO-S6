@@ -1,5 +1,6 @@
 package ins.marianao.sailing.fxml;
 
+import java.awt.TextField;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,7 +18,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+<<<<<<< HEAD
 import javafx.scene.control.ComboBox;
+=======
+>>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,6 +43,16 @@ import cat.institutmarianao.sailing.ws.model.User.Role;
 public class ControllerTripType implements Initializable {
 
     @FXML private BorderPane viewLoginForm;
+    
+    @FXML private TextField priceFrom;
+    @FXML private TextField priceTo;
+    @FXML private TextField placeFrom;
+    @FXML private TextField placeTo;
+    @FXML private TextField durationFrom;
+    @FXML private TextField durationTo;
+    @FXML private SplitMenuButton categorySelect;
+    
+    
     @FXML private TableView<TripType> tripTypeTable;
     @FXML private TableColumn<TripType, Number> colID;
     @FXML private TableColumn<TripType, String> colCategoria;
@@ -55,6 +69,7 @@ public class ControllerTripType implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resource) {
         // Configurar las columnas de la tabla
+<<<<<<< HEAD
 
     	// Crear una lista de roles disponibles desde el modelo de usuario
         /*List<Pair<String,String>> categories = Stream.of(TripType.Category.values()
@@ -93,7 +108,11 @@ public class ControllerTripType implements Initializable {
         });*/
         
         
+=======
+>>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
         this.colCategoria.setCellValueFactory(new PropertyValueFactory<TripType,String>("Category"));
+        
+        
         this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
         /* DIFERENCIAR CATEGORIA PRIVADO / GRUPO 
          * public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
@@ -101,19 +120,38 @@ public class ControllerTripType implements Initializable {
                 return new SimpleStringProperty(resource.getString("text.User."+key)); // Muestra el nombre del rol en texto
             }
          */
+        
+        
         this.colDepartures.setCellValueFactory(new PropertyValueFactory<TripType,String>("Departures"));
+        
+        
         this.colDescription.setCellValueFactory(new PropertyValueFactory<TripType,String>("Description"));
+        
+        
         this.colDuration.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Duration"));
+        
+        
         this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Places"));
+        
+        
         this.colPrecio.setCellValueFactory(new PropertyValueFactory<TripType,Float>("Duration"));
+        
+        
         this.colTitulo.setCellValueFactory(new PropertyValueFactory<TripType,String>("Title"));
 
 
     }
     
+<<<<<<< HEAD
     private void reloadTripTypes() {
         // Obtener el filtro seleccionado desde la ComboBox
        Pair<String, String> selectedCategory = this.cmbcategory.getValue(); // Suponiendo que tienes una ComboBox llamada cmbCategory
+=======
+    /*private void reloadTripTypes() {
+        Role[] roles = null;
+        Pair<String,String> role = this.cmbRole.getValue();
+        String search = this.txtFullnameSearch.getText();
+>>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
 
         // Desactivar la edición de la tabla mientras se cargan los datos
         this.tripTypeTable.setEditable(false);
@@ -154,7 +192,14 @@ public class ControllerTripType implements Initializable {
             ResourceManager.getInstance().getText("error.viewTripTypes.web.service")
         ));
 
+<<<<<<< HEAD
         // Iniciar la consulta
         queryTripTypes.start();
     }
+=======
+        queryUsers.start(); // Iniciar la consulta
+    }*/
+
+    
+>>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
 }
