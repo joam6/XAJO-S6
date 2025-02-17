@@ -18,10 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-<<<<<<< HEAD
-import javafx.scene.control.ComboBox;
-=======
->>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -69,7 +65,6 @@ public class ControllerTripType implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resource) {
         // Configurar las columnas de la tabla
-<<<<<<< HEAD
 
     	// Crear una lista de roles disponibles desde el modelo de usuario
         /*List<Pair<String,String>> categories = Stream.of(TripType.Category.values()
@@ -108,8 +103,6 @@ public class ControllerTripType implements Initializable {
         });*/
         
         
-=======
->>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
         this.colCategoria.setCellValueFactory(new PropertyValueFactory<TripType,String>("Category"));
         
         
@@ -142,22 +135,16 @@ public class ControllerTripType implements Initializable {
 
     }
     
-<<<<<<< HEAD
     private void reloadTripTypes() {
-        // Obtener el filtro seleccionado desde la ComboBox
-       Pair<String, String> selectedCategory = this.cmbcategory.getValue(); // Suponiendo que tienes una ComboBox llamada cmbCategory
-=======
-    /*private void reloadTripTypes() {
-        Role[] roles = null;
+
         Pair<String,String> role = this.cmbRole.getValue();
         String search = this.txtFullnameSearch.getText();
->>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
 
         // Desactivar la edición de la tabla mientras se cargan los datos
         this.tripTypeTable.setEditable(false);
 
         // Preparar el filtro de categorías
-        Category[] categories = null;
+        /*Category[] categories = null;
         if (selectedCategory != null && selectedCategory.getKey() != null) {
             try {
                 categories = new Category[]{Category.valueOf(selectedCategory.getKey())};
@@ -166,7 +153,7 @@ public class ControllerTripType implements Initializable {
                 System.err.println("Categoría no válida: " + selectedCategory.getKey());
                 return;
             }
-        }
+        }*/
 
         // Iniciar la consulta para obtener los tipos de viaje
         final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType();
@@ -192,14 +179,9 @@ public class ControllerTripType implements Initializable {
             ResourceManager.getInstance().getText("error.viewTripTypes.web.service")
         ));
 
-<<<<<<< HEAD
         // Iniciar la consulta
         queryTripTypes.start();
-    }
-=======
-        queryUsers.start(); // Iniciar la consulta
-    }*/
 
-    
->>>>>>> branch 'master' of https://github.com/joam6/XAJO-S6.git
+    }
+
 }
