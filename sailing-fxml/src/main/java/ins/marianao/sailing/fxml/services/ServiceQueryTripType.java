@@ -23,6 +23,7 @@ public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
         super();
     }
 
+
     @Override
 	protected List<TripType> customCall() throws Exception {
         // Obtención del cliente HTTP utilizando el gestor de recursos.
