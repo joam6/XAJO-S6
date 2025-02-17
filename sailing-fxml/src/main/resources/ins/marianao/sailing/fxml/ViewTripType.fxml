@@ -29,7 +29,7 @@
                   <TextField fx:id="durationto" layoutX="657.0" layoutY="100.0" prefWidth="101.0" />
                   <TextField editable="false" layoutX="613.0" layoutY="100.0" prefWidth="44.0" text="To" />
                   <TextField editable="false" layoutX="395.0" layoutY="42.0" prefWidth="121.0" text="Category" />
-                  <SplitMenuButton fx:id="all" layoutX="516.0" layoutY="42.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="159.0" text="All" textAlignment="CENTER">
+                  <SplitMenuButton fx:id="cmbcategory" layoutX="516.0" layoutY="42.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="159.0" text="All" textAlignment="CENTER">
                     <items>
                       <MenuItem fx:id="Private" mnemonicParsing="false" text="Private" />
                       <MenuItem fx:id="group" mnemonicParsing="false" text="Group" />

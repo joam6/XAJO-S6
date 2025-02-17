@@ -3,10 +3,10 @@ package ins.marianao.sailing.fxml.services;
 import java.util.LinkedList;
 import java.util.List;
 import cat.institutmarianao.sailing.ws.model.TripType;
+import cat.institutmarianao.sailing.ws.model.TripType.Category;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
 import jakarta.ws.rs.ProcessingException;
 import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.ResponseProcessingException;
 import jakarta.ws.rs.client.WebTarget;
@@ -15,6 +15,10 @@ import jakarta.ws.rs.core.Response;
 
 public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
     
+	
+	public static final String PATH_REST_USERS = "TripType";
+	private Category[] categories;     
+	
     public ServiceQueryTripType() {
         super();
     }
@@ -28,6 +32,12 @@ public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
 		WebTarget webTarget = client.target(ResourceManager.getInstance().getParam("web.service.host.url"))
                                     .path("trip_type");     // Agrega la ruta de triptypes
 
+		if (this.categories != null) {
+			for (Category category : categories) {
+				webTarget = webTarget.queryParam("Category", category.name()); // Agrega cada rol a la URL
+			}
+		}
+		
 		Invocation.Builder invocationBuilder = ResourceManager.getInstance().getAuthRequestBuilder(webTarget, true);
 
         // Lista que almacenará los usuarios obtenidos desde la API
