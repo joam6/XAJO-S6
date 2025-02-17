@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,62 +39,58 @@ import cat.institutmarianao.sailing.ws.model.User.Role;
 
 public class ControllerTripType implements Initializable {
 
-    @FXML private BorderPane viewLoginForm;
-    
-    @FXML private TextField priceFrom;
-    @FXML private TextField priceTo;
-    @FXML private TextField placeFrom;
-    @FXML private TextField placeTo;
-    @FXML private TextField durationFrom;
-    @FXML private TextField durationTo;
-    @FXML private SplitMenuButton categorySelect;
-    
-    
-    @FXML private TableView<TripType> tripTypeTable;
-    @FXML private TableColumn<TripType, Number> colID;
-    @FXML private TableColumn<TripType, String> colCategoria;
-    @FXML private TableColumn<TripType, String> colDepartures;
-    @FXML private TableColumn<TripType, String> colDescription;
-    @FXML private TableColumn<TripType, Number> colDuration;
-    @FXML private TableColumn<TripType, Number> colMaxPlaza;
-    @FXML private TableColumn<TripType, Float> colPrecio;
-    @FXML private TableColumn<TripType, String> colTitulo;
-    //@FXML private ComboBox<Pair<String,String>> cmbcategory;
-    @FXML private SplitMenuButton cmbcategory;
+	@FXML private BorderPane viewLoginForm;
+
+	@FXML private TextField priceFrom;
+	@FXML private TextField priceTo;
+	@FXML private TextField placeFrom;
+	@FXML private TextField placeTo;
+	@FXML private TextField durationFrom;
+	@FXML private TextField durationTo;
+	@FXML private ComboBox<Pair<String,String>> categorySelect;
 
 
-    @Override
-    public void initialize(URL url, ResourceBundle resource) {
-        // Configurar las columnas de la tabla
+	@FXML private TableView<TripType> tripTypeTable;
+	@FXML private TableColumn<TripType, Number> colID;
+	@FXML private TableColumn<TripType, String> colCategoria;
+	@FXML private TableColumn<TripType, String> colDepartures;
+	@FXML private TableColumn<TripType, String> colDescription;
+	@FXML private TableColumn<TripType, Number> colDuration;
+	@FXML private TableColumn<TripType, Number> colMaxPlaza;
+	@FXML private TableColumn<TripType, Float> colPrecio;
+	@FXML private TableColumn<TripType, String> colTitulo;
 
-    	// Crear una lista de roles disponibles desde el modelo de usuario
-        /*List<Pair<String,String>> categories = Stream.of(TripType.Category.values()
-        		).map(new Function<Category,Pair<String,String>>() {
+
+	@Override
+	public void initialize(URL url, ResourceBundle resource) {
+		// Configurar las columnas de la tabla
+
+		// Crear una lista de categorías disponibles desde el modelo TripType
+		List<Pair<String, String>> categories = Stream.of(TripType.Category.values())
+				.map(category -> new Pair<>(category.name(), resource.getString("text.Triptype." + category.name())))
+				.collect(Collectors.toList());
+
+		// Convertir la lista de categorías a un ObservableList que puede ser usado en el ComboBox
+		ObservableList<Pair<String, String>> listCategories = FXCollections.observableArrayList(categories);
+		listCategories.add(0, null); // Añadir un valor nulo al principio de la lista para la opción "Todas las categorías"
+
+		// Configurar el ComboBox con la lista de categorías
+		this.categorySelect.setItems(listCategories);
+		this.categorySelect.setConverter(Formatters.getStringPairConverter("Triptype"));
+
+		// Añadir listener al ComboBox para recargar los tipos de viaje cuando se cambia el valor
+		this.categorySelect.valueProperty().addListener(new ChangeListener<Pair<String, String>>() {
 			@Override
-			public Pair<String, String> apply(Category t) {
-				 String key = t.name();
-	                return new Pair<String, String>(key, resource.getString("text.Triptype."+key));
+			public void changed(ObservableValue<? extends Pair<String, String>> observable, Pair<String, String> oldValue, Pair<String, String> newValue) {
+				reloadTripTypes(); // Recargar los tipos de viaje cuando cambia la selección
 			}
-        }).collect(Collectors.toList());
+		});
 
-        // Convertir la lista de roles a un ObservableList que puede ser usado en la ComboBox
-        ObservableList<Pair<String,String>> listcategory = FXCollections.observableArrayList(categories);
-        listcategory.add(0, null); // Añadir un valor nulo al principio de la lista para la opción de todos los roles
-        
-        /*this.colCategoria.setId(listcategory);
-        this.colCategoria.setConverter(Formatters.getStringPairConverter("User"));
-    	
-        this.colCategoria.valueProperty().addListener(new ChangeListener<Pair<String,String>>() {
-            @Override
-            public void changed(ObservableValue<? extends Pair<String,String>> observable, Pair<String,String> oldValue, Pair<String,String> newValue) {
-            	reloadTripTypes();
-            }
-        });
+		// Llamar a la función que recarga los tipos de viaje al inicio
+		this.reloadTripTypes();
 
-        // Llamar a la función que recarga los usuarios al inicio
-        this.reloadTripTypes();
-    	
-      //DEFINIR SI EL USUARIO ES ADMIN / CLIENTE EN LA TABLA
+
+		/* //DEFINIR SI EL USUARIO ES ADMIN / CLIENTE EN LA TABLA
         this.colCategoria.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<TripType, String> cellData) {
@@ -101,87 +98,85 @@ public class ControllerTripType implements Initializable {
                 return new SimpleStringProperty(resource.getString("text.Triptype.."+key)); // Muestra el nombre del rol en texto
             }
         });*/
-        
-        
-        this.colCategoria.setCellValueFactory(new PropertyValueFactory<TripType,String>("Category"));
-        
-        
-        this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
-        /* DIFERENCIAR CATEGORIA PRIVADO / GRUPO 
-         * public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
+
+
+		this.colCategoria.setCellValueFactory(new PropertyValueFactory<TripType,String>("Category"));
+		this.colCategoria.setCellValueFactory(cellData -> 
+		new SimpleStringProperty(resource.getString("text.Triptype." + cellData.getValue().getCategory().name()))
+				);
+
+		this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
+		/* DIFERENCIAR CATEGORIA PRIVADO / GRUPO 
+		 * public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
                 String key = cellData.getValue().getRole().toString();
                 return new SimpleStringProperty(resource.getString("text.User."+key)); // Muestra el nombre del rol en texto
             }
-         */
-        
-        
-        this.colDepartures.setCellValueFactory(new PropertyValueFactory<TripType,String>("Departures"));
-        
-        
-        this.colDescription.setCellValueFactory(new PropertyValueFactory<TripType,String>("Description"));
-        
-        
-        this.colDuration.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Duration"));
-        
-        
-        this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Places"));
-        
-        
-        this.colPrecio.setCellValueFactory(new PropertyValueFactory<TripType,Float>("Duration"));
-        
-        
-        this.colTitulo.setCellValueFactory(new PropertyValueFactory<TripType,String>("Title"));
+		 */
 
 
-    }
-    
-    private void reloadTripTypes() {
+		this.colDepartures.setCellValueFactory(new PropertyValueFactory<TripType,String>("Departures"));
 
-        Pair<String,String> role = this.cmbRole.getValue();
-        String search = this.txtFullnameSearch.getText();
 
-        // Desactivar la edición de la tabla mientras se cargan los datos
-        this.tripTypeTable.setEditable(false);
+		this.colDescription.setCellValueFactory(new PropertyValueFactory<TripType,String>("Description"));
 
-        // Preparar el filtro de categorías
-        /*Category[] categories = null;
-        if (selectedCategory != null && selectedCategory.getKey() != null) {
-            try {
-                categories = new Category[]{Category.valueOf(selectedCategory.getKey())};
-            } catch (IllegalArgumentException e) {
-                // Manejar el caso donde el valor de la clave no sea válido
-                System.err.println("Categoría no válida: " + selectedCategory.getKey());
-                return;
-            }
-        }*/
 
-        // Iniciar la consulta para obtener los tipos de viaje
-        final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType();
-        
-        // Configurar el manejador de éxito para cuando la consulta termine
-        queryTripTypes.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent t) {
-                // Reactivar la edición de la tabla
-                tripTypeTable.setEditable(true);
+		this.colDuration.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Duration"));
 
-                // Limpiar los datos actuales de la tabla
-                tripTypeTable.getItems().clear();
 
-                // Obtener los resultados de la consulta y asignarlos a la tabla
-                ObservableList<TripType> tripTypes = FXCollections.observableArrayList(queryTripTypes.getValue());
-                tripTypeTable.setItems(tripTypes);
-            }
-        });
+		this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Places"));
 
-        // Configurar el manejador de fallo para manejar errores en la consulta
-        queryTripTypes.setOnFailed(new OnFailedEventHandler(
-            ResourceManager.getInstance().getText("error.viewTripTypes.web.service")
-        ));
 
-        // Iniciar la consulta
-        queryTripTypes.start();
+		this.colPrecio.setCellValueFactory(new PropertyValueFactory<TripType,Float>("Duration"));
 
-    }
+
+		this.colTitulo.setCellValueFactory(new PropertyValueFactory<TripType,String>("Title"));
+
+
+	}
+
+	private void reloadTripTypes() {
+	    // Desactivar la edición de la tabla mientras se cargan los datos
+	    this.tripTypeTable.setEditable(false);
+
+	    // Obtener la categoría seleccionada desde el ComboBox
+	    Pair<String, String> selectedCategory = this.categorySelect.getValue();
+
+	    // Preparar el filtro de categorías
+	    Category[] categories = null;
+	    if (selectedCategory != null && selectedCategory.getKey() != null) {
+	        try {
+	            categories = new Category[]{Category.valueOf(selectedCategory.getKey())};
+	        } catch (IllegalArgumentException e) {
+	            System.err.println("Categoría no válida: " + selectedCategory.getKey());
+	            return; // Salir si la categoría no es válida
+	        }
+	    }
+
+	    // Iniciar la consulta para obtener los tipos de viaje
+	    final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType();
+
+	    // Configurar el manejador de éxito para cuando la consulta termine
+	    queryTripTypes.setOnSucceeded(event -> {
+	        tripTypeTable.setEditable(true); // Reactivar la edición de la tabla
+	        tripTypeTable.getItems().clear(); // Limpiar los datos actuales
+
+	        // Obtener los resultados de la consulta y asignarlos a la tabla
+	        List<TripType> tripTypes = queryTripTypes.getValue();
+	        if (tripTypes != null) {
+	            ObservableList<TripType> observableTripTypes = FXCollections.observableArrayList(tripTypes);
+	            tripTypeTable.setItems(observableTripTypes);
+	        } else {
+	            System.err.println("No se encontraron tipos de viaje.");
+	        }
+	    });
+
+	    // Configurar el manejador de fallo para manejar errores en la consulta
+	    queryTripTypes.setOnFailed(new OnFailedEventHandler(
+	            ResourceManager.getInstance().getText("error.viewTripTypes.web.service")
+	    ));
+
+	    // Iniciar la consulta
+	    queryTripTypes.start();
+	}
 
 }
