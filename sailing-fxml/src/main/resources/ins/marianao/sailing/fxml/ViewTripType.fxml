@@ -13,6 +13,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>  
+
 
 <VBox fx:id="viewTripType" prefHeight="720.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerTripType">  
   <children>  
@@ -20,7 +22,6 @@
          <center>  
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">  
                <children>  
-                  <Label layoutX="14.0" layoutY="14.0" prefHeight="18.0" prefWidth="235.0" text="%fxml.text.app.TripTypes" />  
                   <GridPane layoutY="83.0" prefHeight="120.0" prefWidth="900.0">  
                     <columnConstraints>  
                       <ColumnConstraints hgrow="NEVER" maxWidth="381.0" minWidth="0.0" percentWidth="0.0" prefWidth="246.0" />  
