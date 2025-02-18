@@ -1,6 +1,5 @@
 package ins.marianao.sailing.fxml;
 
-import java.awt.TextField;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -20,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -47,7 +47,6 @@ public class ControllerTripType implements Initializable {
 	@FXML private TextField placeTo;
 	@FXML private TextField durationFrom;
 	@FXML private TextField durationTo;
-	@FXML private ComboBox<Pair<String,String>> categorySelect;
 
 
 	@FXML private TableView<TripType> tripTypeTable;
@@ -59,6 +58,8 @@ public class ControllerTripType implements Initializable {
 	@FXML private TableColumn<TripType, Number> colMaxPlaza;
 	@FXML private TableColumn<TripType, Float> colPrecio;
 	@FXML private TableColumn<TripType, String> colTitulo;
+	@FXML private ComboBox<Pair<String,String>> categorySelect;
+
 
 
 	@Override
@@ -66,7 +67,7 @@ public class ControllerTripType implements Initializable {
 		// Configurar las columnas de la tabla
 
 		// Crear una lista de categorías disponibles desde el modelo TripType
-		List<Pair<String, String>> categories = Stream.of(TripType.Category.values())
+		/*List<Pair<String, String>> categories = Stream.of(TripType.Category.values())
 				.map(category -> new Pair<>(category.name(), resource.getString("text.Triptype." + category.name())))
 				.collect(Collectors.toList());
 
@@ -84,7 +85,7 @@ public class ControllerTripType implements Initializable {
 			public void changed(ObservableValue<? extends Pair<String, String>> observable, Pair<String, String> oldValue, Pair<String, String> newValue) {
 				reloadTripTypes(); // Recargar los tipos de viaje cuando cambia la selección
 			}
-		});
+		});*/
 
 		// Llamar a la función que recarga los tipos de viaje al inicio
 		this.reloadTripTypes();
@@ -126,7 +127,7 @@ public class ControllerTripType implements Initializable {
 		this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Places"));
 
 
-		this.colPrecio.setCellValueFactory(new PropertyValueFactory<TripType,Float>("Duration"));
+		this.colPrecio.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
 
 		this.colTitulo.setCellValueFactory(new PropertyValueFactory<TripType,String>("Title"));
@@ -136,7 +137,7 @@ public class ControllerTripType implements Initializable {
 
 	private void reloadTripTypes() {
 	    // Desactivar la edición de la tabla mientras se cargan los datos
-	    this.tripTypeTable.setEditable(false);
+	    //this.tripTypeTable.setEditable(false);
 
 	    // Obtener la categoría seleccionada desde el ComboBox
 	    Pair<String, String> selectedCategory = this.categorySelect.getValue();
