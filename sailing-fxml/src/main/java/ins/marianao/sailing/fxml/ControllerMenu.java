@@ -302,7 +302,7 @@ public class ControllerMenu implements Initializable {
 	            	triptype();
 	            	
 	            	if (ResourceManager.getInstance().isAdmin()) tripsMenuClick();
-	            	else bookingMenuClick();
+	            	else triptype();
 	            }
 	        });
 			

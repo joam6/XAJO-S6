@@ -56,7 +56,7 @@ public class ControllerTripType implements Initializable {
 	@FXML private TableColumn<TripType, String> colDescription;
 	@FXML private TableColumn<TripType, Number> colDuration;
 	@FXML private TableColumn<TripType, Number> colMaxPlaza;
-	@FXML private TableColumn<TripType, Float> colPrecio;
+	@FXML private TableColumn<TripType, Double> colPrecio;
 	@FXML private TableColumn<TripType, String> colTitulo;
 	@FXML private ComboBox<Pair<String,String>> categorySelect;
 
@@ -108,37 +108,26 @@ public class ControllerTripType implements Initializable {
         });*/
 
 
-		this.colCategoria.setCellValueFactory(new PropertyValueFactory<TripType,String>("Category"));
+		this.colCategoria.setCellValueFactory(new PropertyValueFactory<TripType, String>("category"));  
 		this.colCategoria.setCellValueFactory(cellData -> 
 		new SimpleStringProperty(resource.getString("text.Triptype." + cellData.getValue().getCategory().name()))
 				);
 
 		this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
 		/* DIFERENCIAR CATEGORIA PRIVADO / GRUPO 
-		 * public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
+		public ObservableValue<String> call(TableColumn.CellDataFeatures<User, String> cellData) {
                 String key = cellData.getValue().getRole().toString();
                 return new SimpleStringProperty(resource.getString("text.User."+key)); // Muestra el nombre del rol en texto
             }
 		 */
 
 
-		this.colDepartures.setCellValueFactory(new PropertyValueFactory<TripType,String>("Departures"));
-
-
-		this.colDescription.setCellValueFactory(new PropertyValueFactory<TripType,String>("Description"));
-
-
-		this.colDuration.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Duration"));
-
-
-		this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<TripType,Number>("Places"));
-
-
-		this.colPrecio.setCellValueFactory(new PropertyValueFactory<>("Price"));
-
-
-		this.colTitulo.setCellValueFactory(new PropertyValueFactory<TripType,String>("Title"));
-
+		this.colDepartures.setCellValueFactory(new PropertyValueFactory<TripType, String>("departures"));  
+		this.colDescription.setCellValueFactory(new PropertyValueFactory<TripType, String>("description"));  
+		this.colDuration.setCellValueFactory(new PropertyValueFactory<TripType, Number>("duration"));  
+		this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<TripType, Number>("places"));  
+		this.colPrecio.setCellValueFactory(new PropertyValueFactory<TripType, Double>("price"));  
+		this.colTitulo.setCellValueFactory(new PropertyValueFactory<TripType, String>("title"));
 
 	}
 
@@ -164,18 +153,18 @@ public class ControllerTripType implements Initializable {
 	    final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType();
 
 	    // Configurar el manejador de éxito para cuando la consulta termine
-	    queryTripTypes.setOnSucceeded(event -> {
-	        tripTypeTable.setEditable(true); // Reactivar la edición de la tabla
-	        tripTypeTable.getItems().clear(); // Limpiar los datos actuales
+	    queryTripTypes.setOnSucceeded(event -> {  
+	        tripTypeTable.setEditable(true);  
+	        tripTypeTable.getItems().clear();   
 
-	        // Obtener los resultados de la consulta y asignarlos a la tabla
-	        List<TripType> tripTypes = queryTripTypes.getValue();
-	        if (tripTypes != null) {
-	            ObservableList<TripType> observableTripTypes = FXCollections.observableArrayList(tripTypes);
-	            tripTypeTable.setItems(observableTripTypes);
-	        } else {
-	            System.err.println("No se encontraron tipos de viaje.");
-	        }
+	        List<TripType> tripTypes = queryTripTypes.getValue();  
+	        System.out.println("Fetched trip types: " + (tripTypes != null ? tripTypes.size() : 0));  
+	        if (tripTypes != null) {  
+	            ObservableList<TripType> observableTripTypes = FXCollections.observableArrayList(tripTypes);  
+	            tripTypeTable.setItems(observableTripTypes);  
+	        } else {  
+	            System.err.println("No se encontraron tipos de viaje.");  
+	        }  
 	    });
 
 	    // Configurar el manejador de fallo para manejar errores en la consulta
