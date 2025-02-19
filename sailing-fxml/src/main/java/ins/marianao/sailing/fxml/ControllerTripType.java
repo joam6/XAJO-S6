@@ -67,9 +67,14 @@ public class ControllerTripType implements Initializable {
 		// Configurar las columnas de la tabla
 
 		// Crear una lista de categorías disponibles desde el modelo TripType
-		/*List<Pair<String, String>> categories = Stream.of(TripType.Category.values())
-				.map(category -> new Pair<>(category.name(), resource.getString("text.Triptype." + category.name())))
-				.collect(Collectors.toList());
+		/*
+		List<Pair<String,String>> categories = Stream.of(TripType.Category.values()).map(new Function<Category,Pair<String,String>>() {
+            @Override
+            public Pair<String,String> apply(Category t) {
+                String key = t.name();
+                return new Pair<String, String>(key, resource.getString("text.TripType."+key));
+            }
+        }).collect(Collectors.toList());
 
 		// Convertir la lista de categorías a un ObservableList que puede ser usado en el ComboBox
 		ObservableList<Pair<String, String>> listCategories = FXCollections.observableArrayList(categories);
@@ -79,14 +84,16 @@ public class ControllerTripType implements Initializable {
 		this.categorySelect.setItems(listCategories);
 		this.categorySelect.setConverter(Formatters.getStringPairConverter("Triptype"));
 
+		
 		// Añadir listener al ComboBox para recargar los tipos de viaje cuando se cambia el valor
 		this.categorySelect.valueProperty().addListener(new ChangeListener<Pair<String, String>>() {
 			@Override
 			public void changed(ObservableValue<? extends Pair<String, String>> observable, Pair<String, String> oldValue, Pair<String, String> newValue) {
 				reloadTripTypes(); // Recargar los tipos de viaje cuando cambia la selección
 			}
-		});*/
+		});
 
+		*/
 		// Llamar a la función que recarga los tipos de viaje al inicio
 		this.reloadTripTypes();
 
