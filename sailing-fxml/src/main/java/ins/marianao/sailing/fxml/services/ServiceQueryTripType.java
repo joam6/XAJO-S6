@@ -15,10 +15,17 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
+	
+	
 	public static final String PATH_REST_TRIP_TYPES = "triptypes"; // Ruta básica para los usuarios en la API.
 	
-	
-	private Category[] categories;     
+	private Category category;
+	private Double priceFrom;
+	private Double priceTo;
+	private Integer maxPlacesFrom;
+	private Integer maxPlacesTo;
+	private Integer durationFrom;
+	private Integer durationTo;
 	
     public ServiceQueryTripType() {
         super();
@@ -36,11 +43,35 @@ public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
 
 		
 
-		if (this.categories != null) {
-			for (Category category : categories) {
+		if (this.category != null) {
 				webTarget = webTarget.queryParam("category", category); // Agrega cada rol a la URL
-			}
+			
 		}
+		
+		if (this.priceFrom != null) {
+	        webTarget = webTarget.queryParam("priceFrom", this.priceFrom);
+	    }
+
+	    if (this.priceTo != null) {
+	        webTarget = webTarget.queryParam("priceTo", this.priceTo);
+	    }
+
+	    if (this.maxPlacesFrom != null) {
+	        webTarget = webTarget.queryParam("maxPlacesFrom", this.maxPlacesFrom);
+	    }
+
+	    if (this.maxPlacesTo != null) {
+	        webTarget = webTarget.queryParam("maxPlacesTo", this.maxPlacesTo);
+	    }
+
+	    if (this.durationFrom != null) {
+	        webTarget = webTarget.queryParam("durationFrom", this.durationFrom);
+	    }
+
+	    if (this.durationTo != null) {
+	        webTarget = webTarget.queryParam("durationTo", this.durationTo);
+	    }
+
 		
 		Invocation.Builder invocationBuilder = null;
 		if (ResourceManager.getInstance().isAuthenticated()) invocationBuilder = ResourceManager.getInstance().getAuthRequestBuilder(webTarget, true);
