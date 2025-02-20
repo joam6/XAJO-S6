@@ -11,12 +11,13 @@ import jakarta.ws.rs.client.Invocation;
 import jakarta.ws.rs.client.ResponseProcessingException;
 import jakarta.ws.rs.client.WebTarget;
 import jakarta.ws.rs.core.GenericType;
+import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
-    
+	public static final String PATH_REST_TRIP_TYPES = "triptypes"; // Ruta básica para los usuarios en la API.
 	
-	public static final String PATH_REST_USERS = "TripType";
+	
 	private Category[] categories;     
 	
     public ServiceQueryTripType() {
@@ -29,17 +30,23 @@ public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
         // Obtención del cliente HTTP utilizando el gestor de recursos.
         Client client = ResourceManager.getInstance().getWebClient();
 
-        // Construcción de la URL para la API añadiendo el path de los usuarios y el de consulta
 		WebTarget webTarget = client.target(ResourceManager.getInstance().getParam("web.service.host.url"))
-                                    .path("trip_type");     // Agrega la ruta de triptypes
+                .path(PATH_REST_TRIP_TYPES)      // Agrega la ruta base de usuarios
+                .path(PATH_QUERY_ALL);      // Agrega la ruta de consulta de todos los usuarios
+
+		
 
 		if (this.categories != null) {
 			for (Category category : categories) {
-				webTarget = webTarget.queryParam("Category", category.name()); // Agrega cada rol a la URL
+				webTarget = webTarget.queryParam("category", category); // Agrega cada rol a la URL
 			}
 		}
 		
-		Invocation.Builder invocationBuilder = ResourceManager.getInstance().getAuthRequestBuilder(webTarget, true);
+		Invocation.Builder invocationBuilder = null;
+		if (ResourceManager.getInstance().isAuthenticated()) invocationBuilder = ResourceManager.getInstance().getAuthRequestBuilder(webTarget, true);
+		else invocationBuilder = webTarget.request(MediaType.APPLICATION_JSON);
+		
+		
 
         // Lista que almacenará los usuarios obtenidos desde la API
 		List<TripType> TripTypes = new LinkedList<TripType>();

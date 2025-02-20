@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="720.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerTrip">
+  <children>
+      <BorderPane fx:id="viewTripForm">
+         <left>
+            <Label prefHeight="46.0" prefWidth="194.0" text="BOOKING" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+         </left>
+	</BorderPane>
+      <TableView prefHeight="676.0" prefWidth="1920.0">
+        <columns>
+          <TableColumn editable="false" prefWidth="39.0" resizable="false" text="#" />
+            <TableColumn fx:id="tCategory" editable="false" minWidth="0.0" prefWidth="109.0" resizable="false" text="Category" />
+            <TableColumn fx:id="tTitle" editable="false" prefWidth="75.0" resizable="false" text="Title" />
+            <TableColumn fx:id="tMax" editable="false" prefWidth="38.0" resizable="false" text="Max" />
+            <TableColumn fx:id="tBooked" editable="false" prefWidth="64.0" resizable="false" text="Booked" />
+            <TableColumn fx:id="tStatus" editable="false" prefWidth="68.0" resizable="false" text="Status" />
+            <TableColumn fx:id="tDate" editable="false" prefWidth="72.0" resizable="false" text="Date" />
+            <TableColumn fx:id="tDeparture" editable="false" prefWidth="88.0" resizable="false" text="Departure" />
+            <TableColumn fx:id="tPlaces" editable="false" prefWidth="54.0" resizable="false" text="Places" />
+            <TableColumn fx:id="tComments" editable="false" prefWidth="90.0" resizable="false" text="Comments" />
+            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
+            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
+            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
+        </columns>
+      </TableView>
+  </children>
+</VBox>

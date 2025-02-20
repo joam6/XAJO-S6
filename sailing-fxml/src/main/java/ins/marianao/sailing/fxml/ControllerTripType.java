@@ -150,7 +150,7 @@ public class ControllerTripType implements Initializable {
 	    }
 
 	    // Iniciar la consulta para obtener los tipos de viaje
-	    final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType(categories);
+	    final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType();
 
 	    // Configurar el manejador de éxito para cuando la consulta termine
 	    queryTripTypes.setOnSucceeded(event -> {  
