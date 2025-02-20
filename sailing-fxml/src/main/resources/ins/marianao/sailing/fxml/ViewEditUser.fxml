@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane fx:id="viewFormRegister" prefHeight="540.0" prefWidth="900.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerFormRegister">
+   <top>
+      <AnchorPane BorderPane.alignment="CENTER">
+         <children>
+            <GridPane hgap="10.0" layoutX="40.0" layoutY="12.0" maxWidth="-Infinity" prefHeight="523.0" prefWidth="814.0" vgap="10.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="46.0" AnchorPane.topAnchor="12.0">
+            	<columnConstraints>
+            		<ColumnConstraints hgrow="ALWAYS" maxWidth="269.0" minWidth="17.0" prefWidth="17.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="508.0" minWidth="256.0" prefWidth="508.0" />
+            	</columnConstraints>
+            	<rowConstraints>
+                  <RowConstraints vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="115.0" minHeight="37.0" prefHeight="42.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="116.0" minHeight="10.0" prefHeight="42.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="110.0" minHeight="10.0" prefHeight="41.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="91.0" minHeight="0.0" prefHeight="39.0" vgrow="ALWAYS" />
+                  <RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="49.0" vgrow="ALWAYS" />
+            		<RowConstraints maxHeight="91.0" minHeight="10.0" prefHeight="83.0" vgrow="ALWAYS" />
+            	</rowConstraints>
+                <children>
+                  <TextField fx:id="etxtUsername" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TextField>
+                  <PasswordField fx:id="etxtPassword" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <PasswordField fx:id="etxtConfirmPassword" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="etxtFullName" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="etxtPhone" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button fx:id="btnEdit" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#registerClick" prefHeight="54.0" prefWidth="510.0" styleClass="button-fullwidth" text="Confirmar" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <TextField text="Username" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
+                  <TextField text="Password" GridPane.rowIndex="2" />
+                  <TextField text="Confirm Password" GridPane.rowIndex="3" />
+                  <TextField text="Full Name" GridPane.rowIndex="4" />
+                  <TextField text="Phone" GridPane.rowIndex="5" />
+                  <Label prefHeight="18.0" prefWidth="235.0" text="EDITAR USUARIO" />
+
+                  	</children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+   </top>
+	</BorderPane>

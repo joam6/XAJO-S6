@@ -19,15 +19,15 @@ import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;  
 import javafx.scene.layout.BorderPane;  
 
-public class ControllerFormRegister implements Initializable {  
+public class ControllerEditUser implements Initializable {  
 
-	@FXML private SplitMenuButton menuUser;
-	@FXML private TextField txtUsername;
-	@FXML private PasswordField txtPassword;
-	@FXML private PasswordField txtConfirmPassword;
-	@FXML private TextField txtFullName;
-	@FXML private TextField txtPhone;
-	@FXML private Button btnRegister;
+	@FXML private Label titleRegister;
+	@FXML private TextField etxtUsername;
+	@FXML private PasswordField etxtPassword;
+	@FXML private PasswordField etxtConfirmPassword;
+	@FXML private TextField etxtFullName;
+	@FXML private TextField etxtPhone;
+	@FXML private Button btnEdit;
 
 
 	public void initialize(URL url, ResourceBundle resource) {  
@@ -37,12 +37,11 @@ public class ControllerFormRegister implements Initializable {
 
 	@FXML
 	public void registerClick(ActionEvent event) {  
-		String userType = this.menuUser.getText();  
-		String username = this.txtUsername.getText();  
-		String password = this.txtPassword.getText();  
-		String confirmPassword = this.txtConfirmPassword.getText();  
-		String fullName = this.txtFullName.getText();  
-		String phoneText = this.txtPhone.getText().trim();
+		String username = this.etxtUsername.getText();  
+		String password = this.etxtPassword.getText();  
+		String confirmPassword = this.etxtConfirmPassword.getText();  
+		String fullName = this.etxtFullName.getText();  
+		String phoneText = this.etxtPhone.getText().trim();
 		if (!phoneText.isEmpty()) {
 			try {
 				Integer phone = Integer.parseInt(phoneText);

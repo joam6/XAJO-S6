@@ -35,7 +35,6 @@
                   <RowConstraints maxHeight="67.0" minHeight="0.0" prefHeight="0.0" vgrow="ALWAYS" />
             	</rowConstraints>
                 <children>
-                  <Label fx:id="titleRegister" styleClass="title" text="" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" />
                   <SplitMenuButton fx:id="menuUser" mnemonicParsing="false" prefHeight="42.0" prefWidth="185.0" text="Cliente" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                     <items>
                       <MenuItem mnemonicParsing="false" text="Admin" />
