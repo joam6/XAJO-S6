@@ -241,6 +241,7 @@ public class ControllerMenu implements Initializable {
 	@FXML
 	public void editProfileMenuClick(ActionEvent event) {
 		this.openUserForm(ResourceManager.getInstance().getCurrentUser());
+		EditUser();
 	}
 
 	/**
@@ -257,6 +258,18 @@ public class ControllerMenu implements Initializable {
 		alert.setHeaderText(null);
 		alert.setContentText("Copyright@" + Calendar.getInstance(new Locale("CA","ES")).get(Calendar.YEAR) + "\nÀlex Macia");
 		alert.showAndWait();
+	}
+	
+	public void EditUser() {
+		try {
+	        // Cargar el controlador de la vista de tipos de viajes (ControllerTripType)
+			VBox vista = (VBox)FXMLLoader.load(getClass().getResource("ViewEditUser.fxml"), ResourceManager.getInstance().getTranslationBundle());
+			this.loadView(vista);
+	        
+
+	    } catch (Exception e) {
+	        ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
+	    }
 	}
 	
 	public void triptype() {
