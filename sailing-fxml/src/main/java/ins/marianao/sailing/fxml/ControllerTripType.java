@@ -6,7 +6,10 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +25,7 @@ import ins.marianao.sailing.fxml.services.ServiceQueryTripType;
 import ins.marianao.sailing.fxml.utils.Formatters;
 import cat.institutmarianao.sailing.ws.model.TripType;
 import cat.institutmarianao.sailing.ws.model.TripType.Category;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 public class ControllerTripType implements Initializable {
@@ -94,24 +98,50 @@ public class ControllerTripType implements Initializable {
 		this.colCategoria.setCellValueFactory(cellData ->
 		new SimpleStringProperty(resource.getString("text.Category." + cellData.getValue().getCategory().name()))
 				);
-		this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
+	    this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
 
-		this.colDepartures.setCellValueFactory(new PropertyValueFactory<>("departures"));
-		this.colDepartures.setCellFactory(TextFieldTableCell.forTableColumn());
+	    this.colDepartures.setCellValueFactory(new PropertyValueFactory<>("departures"));
+	    this.colDepartures.setCellFactory(TextFieldTableCell.forTableColumn());
 
-		this.colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-		this.colDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+	    this.colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+	    this.colDescription.setCellFactory(TextFieldTableCell.forTableColumn());
 
-		this.colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+	    this.colDuration.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Number>, ObservableValue<Number>>() {  
+	        @Override  
+	        public ObservableValue<Number> call(TableColumn.CellDataFeatures<TripType, Number> cell) {  
+	            TripType tripType = cell.getValue();  
+	            return new SimpleIntegerProperty(tripType.getDuration()); // Asumiendo que hay un método getDuration()  
+	        }  
+	    });   
 
-		this.colMaxPlaza.setCellValueFactory(new PropertyValueFactory<>("places"));
+        //this.colDuration.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter(Double.class)));
 
-		this.colPrecio.setCellValueFactory(new PropertyValueFactory<>("price"));
+	    this.colMaxPlaza.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Integer>, ObservableValue<Integer>>() {  
+	        @Override  
+	        public ObservableValue<Integer> call(TableColumn.CellDataFeatures<TripType, Integer> cell) {  
+	            TripType tripType = cell.getValue();  
+	            return new SimpleIntegerProperty(tripType.getMaxPlaces()).asObject(); // Usa asObject() para convertir a ObservableValue<Integer>  
+	        }  
+	    });  
+	    //this.colMaxPlaza.setCellFactory(TextFieldTableCell.forTableColumn());
 
-		this.colTitulo.setCellValueFactory(new PropertyValueFactory<>("title"));
+	    //this.colPrecio.setCellValueFactory(new PropertyValueFactory<>("price"));
+	    this.colPrecio.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Double>, ObservableValue<Double>>() {  
+	        @Override  
+	        public ObservableValue<Double> call(TableColumn.CellDataFeatures<TripType, Double> cell) {  
+	            TripType tripType = cell.getValue();  
+	            // Asegúrate de que getPrice() devuelve un double o Double  
+	            return new SimpleDoubleProperty(tripType.getPrice()).asObject(); // usa SimpleDoubleProperty  
+	        }  
+	    });  
+	    
+	    //this.colPrecio.setCellFactory(TextFieldTableCell.forTableColumn());
 
-		// Recargar los tipos de viaje al inicio
-		reloadTripTypes();
+	    this.colTitulo.setCellValueFactory(new PropertyValueFactory<>("title"));
+	    this.colTitulo.setCellFactory(TextFieldTableCell.forTableColumn());
+
+	    // Recargar los tipos de viaje al inicio
+	    this.reloadTripTypes();
 	}
 
 	private void reloadTripTypes() {
