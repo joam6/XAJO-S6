@@ -312,7 +312,6 @@ public class ControllerMenu implements Initializable {
 
 	            	enableMenu();
 	            	
-	            	triptype();
 	            	
 	            	if (ResourceManager.getInstance().isAdmin()) tripsMenuClick();
 	            	else triptype();
