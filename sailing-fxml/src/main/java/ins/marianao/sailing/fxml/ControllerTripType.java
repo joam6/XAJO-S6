@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
@@ -32,7 +34,7 @@ public class ControllerTripType implements Initializable {
 
 	@FXML private TableView<TripType> tripTypeTable;
 	@FXML private TableColumn<TripType, Number> colID;
-	@FXML private TableColumn<TripType, String> colCategoria;
+	@FXML private TableColumn<TripType, Category> colCategoria; //Modificado, estaba declarado como String.
 	@FXML private TableColumn<TripType, String> colDepartures;
 	@FXML private TableColumn<TripType, String> colDescription;
 	@FXML private TableColumn<TripType, Number> colDuration;
@@ -70,13 +72,35 @@ public class ControllerTripType implements Initializable {
 		    } else if (newValue.getKey().equals("ALL")) {
 		        // Si se seleccionó la opción "Todas las categorías"
 		        reloadTripTypes();
-		    } else {
+		    /*
+		     * ORIGINAL, 25/02 20:15
+		     * } else { 
 		        // Si se seleccionó una categoría específica
 		        Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
 		        String categoryName = resource.getString("text.Category." + selectedCategory.name());
 		        if (categoryName == null || categoryName.isEmpty()) {
 		            categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
 		        }
+		      */
+		        
+		     // MODIFICADO 25/02 20:21 - Filtrar por categoria.
+		    } else if (newValue.getKey().equals("GROUP")){
+			        // Si se seleccionó una categoría específica
+			        Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
+			        String categoryName = resource.getString("text.Category." + selectedCategory.name());
+			        if (categoryName == null || categoryName.isEmpty()) {
+			            categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
+			        }
+			        
+		    } else if (newValue.getKey().equals("PRIVATE")){
+		        // Si se seleccionó una categoría específica
+		        Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
+		        String categoryName = resource.getString("text.Category." + selectedCategory.name());
+		        if (categoryName == null || categoryName.isEmpty()) {
+		            categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
+		        }
+		        
+		      
 		        // Aquí puedes hacer algo con el nombre de la categoría si es necesario
 		        reloadTripTypes();
 		    }
@@ -95,11 +119,21 @@ public class ControllerTripType implements Initializable {
 		// Agregar listener para recargar los tipos de viaje cuando cambia la selección
 		this.categorySelect.valueProperty().addListener((observable, oldValue, newValue) -> reloadTripTypes());*/
 		// Configuración de columnas en la tabla
+		
+		/*
 		this.colCategoria.setCellValueFactory(cellData ->
 		new SimpleStringProperty(resource.getString("text.Category." + cellData.getValue().getCategory().name()))
 				);
 	    this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
+		 */
+		
+		
+		this.colCategoria.setCellValueFactory(cellData ->  
+		    new SimpleObjectProperty<>(cellData.getValue().getCategory())  
+		);  
 
+		this.colCategoria.setCellFactory(ComboBoxTableCell.forTableColumn(Category.values()));
+		
 	    this.colDepartures.setCellValueFactory(new PropertyValueFactory<>("departures"));
 	    this.colDepartures.setCellFactory(TextFieldTableCell.forTableColumn());
 

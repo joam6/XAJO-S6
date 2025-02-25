@@ -148,8 +148,8 @@ public class ControllerMenu implements Initializable {
 	@FXML
 	public void bookingMenuClick() {
 		try {
-			// TODO Open trip types view. Remove empty view 
-			BorderPane vista = new BorderPane();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewBooking.fxml"), ResourceManager.getInstance().getTranslationBundle());
+			BorderPane vista = (BorderPane) loader.load();
 
 			this.loadView(vista);
 		} catch (Exception e) {
