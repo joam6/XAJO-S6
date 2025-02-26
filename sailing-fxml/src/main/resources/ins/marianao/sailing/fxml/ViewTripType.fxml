@@ -106,7 +106,7 @@
             </AnchorPane>  
          </center>  
 	</BorderPane>  
-      <TableView prefHeight="252.0" prefWidth="900.0">  
+      <TableView fx:id="tripTypeTable" prefHeight="252.0" prefWidth="900.0">  
          <columns>  
             <TableColumn fx:id="colCategoria" prefWidth="98.0" text="CATEGORIA" />  
             <TableColumn fx:id="colTitulo" prefWidth="204.0" text="TITULO" />  

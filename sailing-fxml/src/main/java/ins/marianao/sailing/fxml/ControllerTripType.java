@@ -1,6 +1,7 @@
 package ins.marianao.sailing.fxml;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -49,8 +50,8 @@ public class ControllerTripType implements Initializable {
 		// Obtener la lista de categorías con sus traducciones
 		// Crear la lista de categorías con sus traducciones
 		List<Pair<String, String>> categories = Stream.of(Category.values())
-		        .map(category -> new Pair<>(category.name(), resource.getString("text.Category." + category.name())))
-		        .collect(Collectors.toList());
+				.map(category -> new Pair<>(category.name(), resource.getString("text.Category." + category.name())))
+				.collect(Collectors.toList());
 
 		// Agregar la opción "Todas las categorías" al principio de la lista
 		categories.add(0, new Pair<>("ALL", resource.getString("text.Category.ALL"))); // Opción por defecto, puedes traducir "AllCategories" si lo deseas
@@ -66,44 +67,44 @@ public class ControllerTripType implements Initializable {
 
 		// Obtener el nombre de la categoría traducido cuando la categoría es seleccionada
 		categorySelect.valueProperty().addListener((observable, oldValue, newValue) -> {
-		    if (newValue == null) {
-		        // Si no se ha seleccionado nada, se maneja el valor null (opción por defecto)
-		        reloadTripTypes();
-		    } else if (newValue.getKey().equals("ALL")) {
-		        // Si se seleccionó la opción "Todas las categorías"
-		        reloadTripTypes();
-		    /*
-		     * ORIGINAL, 25/02 20:15
-		     * } else { 
+			if (newValue == null) {
+				// Si no se ha seleccionado nada, se maneja el valor null (opción por defecto)
+				reloadTripTypes();
+			} else if (newValue.getKey().equals("ALL")) {
+				// Si se seleccionó la opción "Todas las categorías"
+				reloadTripTypes();
+				/*
+				 * ORIGINAL, 25/02 20:15
+				 * } else { 
 		        // Si se seleccionó una categoría específica
 		        Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
 		        String categoryName = resource.getString("text.Category." + selectedCategory.name());
 		        if (categoryName == null || categoryName.isEmpty()) {
 		            categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
 		        }
-		      */
-		        
-		     // MODIFICADO 25/02 20:21 - Filtrar por categoria.
-		    } else if (newValue.getKey().equals("GROUP")){
-			        // Si se seleccionó una categoría específica
-			        Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
-			        String categoryName = resource.getString("text.Category." + selectedCategory.name());
-			        if (categoryName == null || categoryName.isEmpty()) {
-			            categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
-			        }
-			        
-		    } else if (newValue.getKey().equals("PRIVATE")){
-		        // Si se seleccionó una categoría específica
-		        Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
-		        String categoryName = resource.getString("text.Category." + selectedCategory.name());
-		        if (categoryName == null || categoryName.isEmpty()) {
-		            categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
-		        }
-		        
-		      
-		        // Aquí puedes hacer algo con el nombre de la categoría si es necesario
-		        reloadTripTypes();
-		    }
+				 */
+
+				// MODIFICADO 25/02 20:21 - Filtrar por categoria.
+			} else if (newValue.getKey().equals("GROUP")){
+				// Si se seleccionó una categoría específica
+				Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
+				String categoryName = resource.getString("text.Category." + selectedCategory.name());
+				if (categoryName == null || categoryName.isEmpty()) {
+					categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
+				}
+
+			} else if (newValue.getKey().equals("PRIVATE")){
+				// Si se seleccionó una categoría específica
+				Category selectedCategory = Category.valueOf(newValue.getKey()); // Convierte la clave a un valor de la enumeración Category
+				String categoryName = resource.getString("text.Category." + selectedCategory.name());
+				if (categoryName == null || categoryName.isEmpty()) {
+					categoryName = selectedCategory.name(); // Valor por defecto si no se encuentra la traducción
+				}
+
+
+				// Aquí puedes hacer algo con el nombre de la categoría si es necesario
+				reloadTripTypes();
+			}
 		});
 
 		/*List<Pair<String, String>> categories = Stream.of(TripType.Category.values())
@@ -119,67 +120,68 @@ public class ControllerTripType implements Initializable {
 		// Agregar listener para recargar los tipos de viaje cuando cambia la selección
 		this.categorySelect.valueProperty().addListener((observable, oldValue, newValue) -> reloadTripTypes());*/
 		// Configuración de columnas en la tabla
-		
+
 		/*
 		this.colCategoria.setCellValueFactory(cellData ->
 		new SimpleStringProperty(resource.getString("text.Category." + cellData.getValue().getCategory().name()))
 				);
 	    this.colCategoria.setCellFactory(TextFieldTableCell.forTableColumn());
 		 */
-		
-		
+
+
 		this.colCategoria.setCellValueFactory(cellData ->  
-		    new SimpleObjectProperty<>(cellData.getValue().getCategory())  
-		);  
+		new SimpleObjectProperty<>(cellData.getValue().getCategory())  
+				);  
 
 		this.colCategoria.setCellFactory(ComboBoxTableCell.forTableColumn(Category.values()));
-		
-	    this.colDepartures.setCellValueFactory(new PropertyValueFactory<>("departures"));
-	    this.colDepartures.setCellFactory(TextFieldTableCell.forTableColumn());
 
-	    this.colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-	    this.colDescription.setCellFactory(TextFieldTableCell.forTableColumn());
+		this.colDepartures.setCellValueFactory(new PropertyValueFactory<>("departures"));
+		this.colDepartures.setCellFactory(TextFieldTableCell.forTableColumn());
 
-	    this.colDuration.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Number>, ObservableValue<Number>>() {  
-	        @Override  
-	        public ObservableValue<Number> call(TableColumn.CellDataFeatures<TripType, Number> cell) {  
-	            TripType tripType = cell.getValue();  
-	            return new SimpleIntegerProperty(tripType.getDuration()); // Asumiendo que hay un método getDuration()  
-	        }  
-	    });   
+		this.colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+		this.colDescription.setCellFactory(TextFieldTableCell.forTableColumn());
 
-        //this.colDuration.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter(Double.class)));
+		this.colDuration.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Number>, ObservableValue<Number>>() {  
+			@Override  
+			public ObservableValue<Number> call(TableColumn.CellDataFeatures<TripType, Number> cell) {  
+				TripType tripType = cell.getValue();  
+				return new SimpleIntegerProperty(tripType.getDuration()); // Asumiendo que hay un método getDuration()  
+			}  
+		});   
 
-	    this.colMaxPlaza.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Integer>, ObservableValue<Integer>>() {  
-	        @Override  
-	        public ObservableValue<Integer> call(TableColumn.CellDataFeatures<TripType, Integer> cell) {  
-	            TripType tripType = cell.getValue();  
-	            return new SimpleIntegerProperty(tripType.getMaxPlaces()).asObject(); // Usa asObject() para convertir a ObservableValue<Integer>  
-	        }  
-	    });  
-	    //this.colMaxPlaza.setCellFactory(TextFieldTableCell.forTableColumn());
+		//this.colDuration.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter(Double.class)));
 
-	    //this.colPrecio.setCellValueFactory(new PropertyValueFactory<>("price"));
-	    this.colPrecio.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Double>, ObservableValue<Double>>() {  
-	        @Override  
-	        public ObservableValue<Double> call(TableColumn.CellDataFeatures<TripType, Double> cell) {  
-	            TripType tripType = cell.getValue();  
-	            // Asegúrate de que getPrice() devuelve un double o Double  
-	            return new SimpleDoubleProperty(tripType.getPrice()).asObject(); // usa SimpleDoubleProperty  
-	        }  
-	    });  
-	    
-	    //this.colPrecio.setCellFactory(TextFieldTableCell.forTableColumn());
+		this.colMaxPlaza.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Integer>, ObservableValue<Integer>>() {  
+			@Override  
+			public ObservableValue<Integer> call(TableColumn.CellDataFeatures<TripType, Integer> cell) {  
+				TripType tripType = cell.getValue();  
+				return new SimpleIntegerProperty(tripType.getMaxPlaces()).asObject(); // Usa asObject() para convertir a ObservableValue<Integer>  
+			}  
+		});  
+		//this.colMaxPlaza.setCellFactory(TextFieldTableCell.forTableColumn());
 
-	    this.colTitulo.setCellValueFactory(new PropertyValueFactory<>("title"));
-	    this.colTitulo.setCellFactory(TextFieldTableCell.forTableColumn());
+		//this.colPrecio.setCellValueFactory(new PropertyValueFactory<>("price"));
+		this.colPrecio.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<TripType, Double>, ObservableValue<Double>>() {  
+			@Override  
+			public ObservableValue<Double> call(TableColumn.CellDataFeatures<TripType, Double> cell) {  
+				TripType tripType = cell.getValue();  
+				// Asegúrate de que getPrice() devuelve un double o Double  
+				return new SimpleDoubleProperty(tripType.getPrice()).asObject(); // usa SimpleDoubleProperty  
+			}  
+		});  
 
-	    // Recargar los tipos de viaje al inicio
-	    this.reloadTripTypes();
+		//this.colPrecio.setCellFactory(TextFieldTableCell.forTableColumn());
+
+		this.colTitulo.setCellValueFactory(new PropertyValueFactory<>("title"));
+		this.colTitulo.setCellFactory(TextFieldTableCell.forTableColumn());
+
+		// Recargar los tipos de viaje al inicio
+		this.reloadTripTypes();
 	}
 
 	private void reloadTripTypes() {
-		Pair<String, String> selectedCategory = categorySelect.getValue();
+		List<Category> selectedCategories = new LinkedList<>();
+		Pair<String, String> selectedCategoryPair = categorySelect.getValue();
 
 		if (tripTypeTable == null) {
 			System.err.println("La tabla tripTypeTable no está inicializada.");
@@ -191,18 +193,18 @@ public class ControllerTripType implements Initializable {
 		tripTypeTable.getItems().clear();  // Limpiar la tabla antes de añadir nuevos datos
 
 		// Preparar el filtro de categorías
-		Category[] categories = null;
-		if (selectedCategory != null && selectedCategory.getKey() != null) {
+		if (selectedCategoryPair != null && selectedCategoryPair.getKey() != null) {
 			try {
-				categories = new Category[]{Category.valueOf(selectedCategory.getKey())};
+				// Si solo se permite una sola categoría, agregarla directamente
+				selectedCategories.add(Category.valueOf(selectedCategoryPair.getKey()));
 			} catch (IllegalArgumentException e) {
-				System.err.println("Categoría no válida: " + selectedCategory.getKey());
+				System.err.println("Categoría no válida: " + selectedCategoryPair.getKey());
 				return; // Salir si la categoría no es válida
 			}
 		}
 
 		// Iniciar la consulta para obtener los tipos de viaje
-		final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType();
+		final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType(selectedCategories);
 
 		// Configurar el manejador de éxito para cuando la consulta termine
 		queryTripTypes.setOnSucceeded(event -> {
