@@ -28,8 +28,16 @@ public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
 	private Integer durationFrom;
 	private Integer durationTo;
 
-	public ServiceQueryTripType(List<Category> categories) {
-		this.category = categories;
+	public ServiceQueryTripType(List<Category> category, Double priceFrom, Double priceTo, Integer maxPlacesFrom,
+			Integer maxPlacesTo, Integer durationFrom, Integer durationTo) {
+		super();
+		this.category = category;
+		this.priceFrom = priceFrom;
+		this.priceTo = priceTo;
+		this.maxPlacesFrom = maxPlacesFrom;
+		this.maxPlacesTo = maxPlacesTo;
+		this.durationFrom = durationFrom;
+		this.durationTo = durationTo;
 	}
 
 
@@ -47,7 +55,7 @@ public class ServiceQueryTripType extends ServiceQueryBase<TripType> {
 				webTarget = webTarget.queryParam("category", category.name());
 			}
 		}
-
+	
 		if (this.priceFrom != null) {
 			webTarget = webTarget.queryParam("priceFrom", this.priceFrom);
 		}

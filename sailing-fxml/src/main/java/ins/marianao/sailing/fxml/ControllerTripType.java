@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -33,6 +35,15 @@ import javafx.util.Pair;
 
 public class ControllerTripType implements Initializable {
 
+	@FXML private ComboBox<Pair<String, String>> categorySelect;
+	@FXML private TextField priceFrom;
+	@FXML private TextField priceTo;
+	@FXML private TextField placeFrom;
+	@FXML private TextField placeTo;
+	@FXML private TextField durationFrom;
+	@FXML private TextField durationTo;
+
+
 	@FXML private TableView<TripType> tripTypeTable;
 	@FXML private TableColumn<TripType, Number> colID;
 	@FXML private TableColumn<TripType, Category> colCategoria; //Modificado, estaba declarado como String.
@@ -42,12 +53,48 @@ public class ControllerTripType implements Initializable {
 	@FXML private TableColumn<TripType, Integer> colMaxPlaza;
 	@FXML private TableColumn<TripType, Double> colPrecio;
 	@FXML private TableColumn<TripType, String> colTitulo;
-	@FXML private ComboBox<Pair<String, String>> categorySelect;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
 		// Configuración de ComboBox para categorías
 		// Obtener la lista de categorías con sus traducciones
+		// Añadir listener al campo de texto de búsqueda, para recargar los usuarios al cambiar el texto
+		this.priceFrom.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				reloadTripTypes(); // Recarga la lista de usuarios cuando cambia el texto
+			}
+		});
+		this.priceTo.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				reloadTripTypes(); // Recarga la lista de usuarios cuando cambia el texto
+			}
+		});
+		this.placeFrom.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				reloadTripTypes(); // Recarga la lista de usuarios cuando cambia el texto
+			}
+		});
+		this.placeTo.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				reloadTripTypes(); // Recarga la lista de usuarios cuando cambia el texto
+			}
+		});
+		this.durationFrom.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				reloadTripTypes(); // Recarga la lista de usuarios cuando cambia el texto
+			}
+		});
+		this.durationTo.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				reloadTripTypes(); // Recarga la lista de usuarios cuando cambia el texto
+			}
+		});
 		// Crear la lista de categorías con sus traducciones
 		List<Pair<String, String>> categories = Stream.of(Category.values())
 				.map(category -> new Pair<>(category.name(), resource.getString("text.Category." + category.name())))
@@ -182,6 +229,7 @@ public class ControllerTripType implements Initializable {
 	private void reloadTripTypes() {
 		List<Category> selectedCategories = new LinkedList<>();
 		Pair<String, String> selectedCategoryPair = categorySelect.getValue();
+		//String pricef = this.priceFrom.getText();
 
 		if (tripTypeTable == null) {
 			System.err.println("La tabla tripTypeTable no está inicializada.");
@@ -202,9 +250,15 @@ public class ControllerTripType implements Initializable {
 				return; // Salir si la categoría no es válida
 			}
 		}
-
+		Double priceFrom = parseDoubleOrNull(this.priceFrom.getText());
+		Double priceTo = parseDoubleOrNull(this.priceTo.getText());
+		Integer placeFrom = parseIntegerOrNull(this.priceFrom.getText());
+		Integer placeTo = parseIntegerOrNull(this.priceTo.getText());
+		Integer durationFrom = parseIntegerOrNull(this.durationFrom.getText());
+	    Integer durationTo = parseIntegerOrNull(this.durationTo.getText());
 		// Iniciar la consulta para obtener los tipos de viaje
-		final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType(selectedCategories);
+		final ServiceQueryTripType queryTripTypes = new ServiceQueryTripType(selectedCategories, priceFrom, priceTo,
+				placeFrom, placeTo, durationFrom, durationTo);
 
 		// Configurar el manejador de éxito para cuando la consulta termine
 		queryTripTypes.setOnSucceeded(event -> {
@@ -227,4 +281,28 @@ public class ControllerTripType implements Initializable {
 		// Iniciar la consulta
 		queryTripTypes.start();
 	}
+	
+	private Double parseDoubleOrNull(String value) {
+		if (value == null || value.isEmpty()) {
+			return null; // Si el campo está vacío, no aplicar filtro
+		}
+		try {
+			return Double.parseDouble(value); // Intentar convertir a Double
+		} catch (NumberFormatException e) {
+			System.err.println("Valor de precio no válido: " + value);
+			return null; // Devolver null si no es un número válido
+		}
+	}
+	private Integer parseIntegerOrNull(String value) {
+	    if (value == null || value.isEmpty()) {
+	        return null; // Si el campo está vacío, no aplicar filtro
+	    }
+	    try {
+	        return Integer.parseInt(value); // Intentar convertir a Integer
+	    } catch (NumberFormatException e) {
+	        System.err.println("Valor no válido: " + value);
+	        return null; // Devolver null si no es un número válido
+	    }
+	}
+	
 }
