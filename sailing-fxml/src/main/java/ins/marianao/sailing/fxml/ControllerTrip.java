@@ -5,12 +5,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import cat.institutmarianao.sailing.ws.model.Client;
 import cat.institutmarianao.sailing.ws.model.Trip;
+import cat.institutmarianao.sailing.ws.model.Trip.Status;
 import cat.institutmarianao.sailing.ws.model.TripType;
 import cat.institutmarianao.sailing.ws.model.TripType.Category;
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
@@ -23,6 +25,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -30,6 +36,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -48,7 +55,11 @@ public class ControllerTrip implements Initializable{
 	@FXML private ComboBox<Pair<String, String>> statusSelector;
 	@FXML private DatePicker fromDate;
 	@FXML private DatePicker toDate;
-
+	@FXML private ButtonBar buttonBar;
+	
+	@FXML private TableColumn<Trip, Void> action1;
+	@FXML private TableColumn<Trip, Void> action2;
+	@FXML private TableColumn<Trip, Void> action3;
 	@FXML private BorderPane viewTripForm;
 	@FXML private TableView<Trip> tripTable;
 	@FXML private TableColumn<Trip, String> tripClient;
@@ -64,59 +75,45 @@ public class ControllerTrip implements Initializable{
 
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
-
-		// Configuración de categorías (solo si lo necesitas)
+		// Configuración de categorías
 		List<Pair<String, String>> categories = Stream.of(Category.values())
 				.map(category -> new Pair<>(category.name(), resource.getString("text.Category." + category.name())))
 				.collect(Collectors.toList());
 		categories.add(0, new Pair<>("ALL", resource.getString("text.Category.ALL"))); // Opción por defecto
 
-		/*List<Client> clients = getClients();  // Obtienes los clientes desde alguna fuente de datos
+		// Configuración del ComboBox para las categorías
+		categorySelector.setItems(FXCollections.observableArrayList(categories));
 
-		// Configura el ComboBox para que muestre los nombres de los clientes
-		clientSelector.setItems(FXCollections.observableArrayList(clients));
+		// Configuración del ComboBox para las categorías
+		/*  this.tripCategory.setCellFactory(ComboBoxTableCell.forTableColumn(Category.values())); // Para mostrar categorías en un combo
+	    this.tripCategory.setCellValueFactory(cellData -> 
+	        new SimpleObjectProperty<>(cellData.getValue().getCategory()));  // Usando la categoría
 
-		// Establece el StringConverter para convertir el objeto Client en un String (por ejemplo, nombre completo)
-		clientSelector.setConverter(new StringConverter<Client>() {
-			@Override
-			public String toString(Client client) {
-				return client.getFullName(); // Aquí decides qué mostrar
-			}
-
-			@Override
-			public Client fromString(String string) {
-				return null; // Este método no es necesario en este caso, pero puedes implementarlo si lo necesitas
-			}
-		});*/
-
-		// La columna de Categoría necesita un ComboBoxTableCell si es una categoría
-		//this.tripCategory.setCellValueFactory(cellData -> 
-		//      new SimpleObjectProperty<>(cellData.getValue().getCategory()));  
-		this.tripCategory.setCellFactory(ComboBoxTableCell.forTableColumn(Category.values()));  // Para mostrar categorías en un combo
+	    // Configuración de las otras columnas
+	    this.tripTitle.setCellValueFactory(cellData -> 
+	        new SimpleObjectProperty<>(cellData.getValue().getTripType().getTitle()));  // Corregido para acceder a TripType
+	    this.tripMaxPlaces.setCellValueFactory(cellData -> 
+	        new SimpleIntegerProperty(cellData.getValue().getMaxPlaces()).asObject());*/
 
 		this.tripTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-		this.tripTitle.setCellFactory(TextFieldTableCell.forTableColumn());
-
-		this.tripMaxPlaces.setCellValueFactory(cellData -> 
-		new SimpleIntegerProperty(cellData.getValue().getMaxPlaces()).asObject());
-
 		this.tripBooked.setCellValueFactory(new PropertyValueFactory<>("booked"));
 		this.tripStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-
 		this.tripDate.setCellValueFactory(new PropertyValueFactory<>("date"));
-
 		this.tripDeparture.setCellValueFactory(new PropertyValueFactory<>("departure"));
-		this.tripDeparture.setCellFactory(TextFieldTableCell.forTableColumn());
-
 		this.tripPlaces.setCellValueFactory(cellData -> 
 		new SimpleIntegerProperty(cellData.getValue().getPlaces()).asObject());
 
 		this.tripComments.setCellValueFactory(new PropertyValueFactory<>("comments"));
-		this.tripComments.setCellFactory(TextFieldTableCell.forTableColumn());
+
+	    configureActionColumn(action1, "Acción 1");
+	    configureActionColumn(action2, "Acción 2");
+	    configureActionColumn(action3, "Acción 3");
+
 
 		// Cargar los viajes al inicio
 		this.reloadTrip();
 	}
+
 
 	private void reloadTrip() {
 		if (tripTable == null) {
@@ -156,5 +153,68 @@ public class ControllerTrip implements Initializable{
 		queryTrip.start();
 	}
 
+	private void configureActionColumn(TableColumn<Trip, Void> column, String columnName) {
+		// Configurar el título de la columna
+		column.setText(columnName);
+
+		// Establecer el factoría de celdas con botón
+		column.setCellValueFactory(param -> null);
+		column.setCellFactory(param -> new TableCell<Trip, Void>() {
+			private final Button btnAction = new Button("•••"); // Icono de puntos
+
+			{
+				btnAction.setOnAction(event -> {
+					Trip trip = getTableView().getItems().get(getIndex());
+					showReservationPopup(trip);
+				});
+
+				// Hacer el botón más pequeño y centrado
+				btnAction.setStyle("-fx-padding: 0 2; -fx-min-width: 25px;");
+			}
+
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+
+				// Mostrar el botón solo si la fila tiene datos y el estado es RESERVA
+				if (!empty && getIndex() >= 0) {
+					Trip trip = getTableView().getItems().get(getIndex());
+					setGraphic(trip.getStatus() == Status.RESERVED ? btnAction : null);
+				} else {
+					setGraphic(null);
+				}
+			}
+		});
+	}
+
+	private void showReservationPopup(Trip trip) {
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setTitle("Reserva Activa");
+		alert.setHeaderText("Información de la Reserva");
+		alert.setContentText("El viaje con ID " + trip.getId() + " está en estado RESERVA.");
+
+		// Agregar botones personalizados
+		ButtonType btnAceptar = new ButtonType("Aceptar", ButtonBar.ButtonData.OK_DONE);
+		ButtonType btnModificar = new ButtonType("Modificar", ButtonBar.ButtonData.OTHER);
+		ButtonType btnCancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(btnAceptar, btnModificar, btnCancelar);
+
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.isPresent()) {
+			switch (result.get().getText()) {
+			case "Modificar":
+				System.out.println("Modificar reserva del viaje: " + trip.getId());
+				break;
+			case "Cancelar":
+				System.out.println("Cancelar reserva del viaje: " + trip.getId());
+				break;
+			case "Aceptar":
+				System.out.println("Aceptar reserva del viaje: " + trip.getId());
+				break;
+			}
+		}
+	}
 
 }

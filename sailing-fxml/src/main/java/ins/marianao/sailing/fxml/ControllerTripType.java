@@ -101,8 +101,7 @@ public class ControllerTripType implements Initializable {
 				.collect(Collectors.toList());
 
 		// Agregar la opción "Todas las categorías" al principio de la lista
-		categories.add(0, new Pair<>("ALL", resource.getString("text.Category.ALL"))); // Opción por defecto, puedes traducir "AllCategories" si lo deseas
-
+		categories.add(0, new Pair<>("ALL", resource.getString("text.Category.ALL"))); 
 		// Asignar la lista de categorías al ComboBox o similar
 		categorySelect.setItems(FXCollections.observableArrayList(categories));
 
@@ -250,6 +249,7 @@ public class ControllerTripType implements Initializable {
 				return; // Salir si la categoría no es válida
 			}
 		}
+		
 		Double priceFrom = parseDoubleOrNull(this.priceFrom.getText());
 		Double priceTo = parseDoubleOrNull(this.priceTo.getText());
 		Integer placeFrom = parseIntegerOrNull(this.priceFrom.getText());

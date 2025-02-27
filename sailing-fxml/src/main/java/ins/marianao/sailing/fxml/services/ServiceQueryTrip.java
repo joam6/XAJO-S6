@@ -25,7 +25,8 @@ import javafx.scene.control.DatePicker;
 public class ServiceQueryTrip extends ServiceQueryBase<Trip> {
     
 	public static final String PATH_REST_TRIP = "trips"; // Ruta básica para los usuarios en la API.
-
+	public static final String PATH_REST_TRIP_TYPES = "triptypes";
+	
 	private List<User> clientSelector;
 	private List<Category> categorySelector;
 	private List<Status> statusSelector;
@@ -54,6 +55,7 @@ public class ServiceQueryTrip extends ServiceQueryBase<Trip> {
 				.path(PATH_REST_TRIP)      // Agrega la ruta base de usuarios
 				.path(PATH_QUERY_ALL);      // Agrega la ruta de consulta de todos los usuarios
 		
+
 		
 		if (this.clientSelector != null && !this.clientSelector.isEmpty()) {
 			for (User user : this.clientSelector) {
@@ -87,7 +89,7 @@ public class ServiceQueryTrip extends ServiceQueryBase<Trip> {
 
 
 		// Lista que almacenará los usuarios obtenidos desde la API
-		List<Trip> TripTypes = new LinkedList<Trip>();
+		List<Trip> Trip = new LinkedList<Trip>();
 
 		// Manejo de la solicitud y procesamiento de la respuesta
 		try {
@@ -98,8 +100,8 @@ public class ServiceQueryTrip extends ServiceQueryBase<Trip> {
 			ResourceManager.getInstance().checkResponseErrors(response);
 
 			// Deserializa la respuesta de la API en una lista de objetos TripType
-			TripTypes = response.readEntity(new GenericType<List<Trip>>(){});
-
+			Trip = response.readEntity(new GenericType<List<Trip>>(){});
+			
 		} catch (ResponseProcessingException e) {
 			// Manejo de errores cuando ocurre un problema al procesar la respuesta
 			e.printStackTrace();
@@ -115,6 +117,6 @@ public class ServiceQueryTrip extends ServiceQueryBase<Trip> {
 		}
 
 		// Devuelve la lista de usuarios obtenidos
-		return TripTypes;
+		return Trip;
 	}
 }

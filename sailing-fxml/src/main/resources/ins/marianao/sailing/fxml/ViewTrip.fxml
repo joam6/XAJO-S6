@@ -92,9 +92,9 @@
             <TableColumn fx:id="tripDeparture" editable="false" prefWidth="88.0" resizable="false" text="Departure" />
             <TableColumn fx:id="tripPlaces" editable="false" prefWidth="54.0" resizable="false" text="Places" />
             <TableColumn fx:id="tripComments" editable="false" prefWidth="90.0" resizable="false" text="Comments" />
-            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
-            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
-            <TableColumn editable="false" prefWidth="30.0" resizable="false" />
+            <TableColumn fx:id="action1" editable="false" prefWidth="30.0" resizable="false" />
+            <TableColumn fx:id="action2" editable="false" prefWidth="30.0" resizable="false" />
+            <TableColumn fx:id="action3" editable="false" prefWidth="30.0" resizable="false" />
         </columns>
       </TableView>
   </children>
