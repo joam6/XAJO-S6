@@ -32,6 +32,7 @@ public class ControllerFormRegister implements Initializable {
 
 	public void initialize(URL url, ResourceBundle resource) {  
 		// Inicialización del controlador  
+		registerClick(null);
 	}  
 
 
