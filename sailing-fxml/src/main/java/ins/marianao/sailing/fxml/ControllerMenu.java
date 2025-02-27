@@ -145,17 +145,17 @@ public class ControllerMenu implements Initializable {
 	 *
 	 * @param event the action event.
 	 */
-	@FXML
-	public void bookingMenuClick() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewBooking.fxml"), ResourceManager.getInstance().getTranslationBundle());
-			BorderPane vista = (BorderPane) loader.load();
+	@FXML  
+	public void bookingMenuClick() {  
+	    try {  
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("ViewBooking.fxml"), ResourceManager.getInstance().getTranslationBundle());  
+	        VBox vista = (VBox) loader.load(); // Change to VBox  
 
-			this.loadView(vista);
-		} catch (Exception e) {
-			ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
-		}
-	}
+	        this.loadView(vista); // Assuming loadView can take VBox  
+	    } catch (Exception e) {  
+	        ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));  
+	    }  
+	}  
 
 	/**
 	 * Called when Trips menuItem is fired.

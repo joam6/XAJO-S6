@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerTrip">
+<VBox fx:id="viewBookingForm" prefHeight="720.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ins.marianao.sailing.fxml.ControllerTrip">
   <children>
-      <BorderPane fx:id="viewBookingForm">
+      <BorderPane >
          <left>
             <Label prefHeight="46.0" prefWidth="194.0" text="BOOKING" BorderPane.alignment="CENTER">
                <font>
