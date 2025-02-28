@@ -43,7 +43,7 @@ public class ControllerTrip implements Initializable {
     @FXML private TableColumn<Trip, Category> tripCategory;
     @FXML private TableColumn<Trip, String> tripTitle;
     @FXML private TableColumn<Trip, Integer> tripMaxPlaces;
-    @FXML private TableColumn<Trip, String> tripBooked;
+    @FXML private TableColumn<Trip, Integer> tripBooked;
     @FXML private TableColumn<Trip, String> tripStatus;
     @FXML private TableColumn<Trip, String> tripDate;
     @FXML private TableColumn<Trip, String> tripDeparture;
@@ -80,7 +80,9 @@ public class ControllerTrip implements Initializable {
         tripCategory.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDeparture().getTripType().getCategory()));
         tripTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDeparture().getTripType().getTitle()));
         tripMaxPlaces.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getDeparture().getTripType().getMaxPlaces()).asObject());
-        tripBooked.setCellValueFactory(new PropertyValueFactory<>("booked"));
+        tripBooked.setCellValueFactory(cellData ->
+        new SimpleIntegerProperty(cellData.getValue().getDeparture().getBookedPlaces()).asObject());
+
         tripStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         tripDeparture.setCellValueFactory(cellData -> new SimpleStringProperty(sdf2.format(cellData.getValue().getDeparture().getDate())));
         tripPlaces.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPlaces()).asObject());
