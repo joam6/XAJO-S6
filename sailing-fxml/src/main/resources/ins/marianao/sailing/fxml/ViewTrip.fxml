@@ -81,7 +81,7 @@
 	</BorderPane>
       <TableView fx:id="tripTable" prefHeight="537.0" prefWidth="900.0">
         <columns>
-          <TableColumn editable="false" prefWidth="39.0" resizable="false" text="#" />
+          <TableColumn fx:id="tripid" editable="false" prefWidth="39.0" resizable="false" text="#" />
           <TableColumn fx:id="tripClient" editable="false" prefWidth="250.0" resizable="false" text="Client" />
             <TableColumn fx:id="tripCategory" editable="false" minWidth="0.0" prefWidth="109.0" resizable="false" text="Category" />
             <TableColumn fx:id="tripTitle" editable="false" prefWidth="75.0" resizable="false" text="Title" />

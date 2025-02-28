@@ -12,14 +12,17 @@ import cat.institutmarianao.sailing.ws.model.Client;
 import cat.institutmarianao.sailing.ws.model.Trip;
 import cat.institutmarianao.sailing.ws.model.Trip.Status;
 import cat.institutmarianao.sailing.ws.model.TripType;
+import cat.institutmarianao.sailing.ws.model.User;
 import cat.institutmarianao.sailing.ws.model.TripType.Category;
 import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
 import ins.marianao.sailing.fxml.services.ServiceQueryTrip;
 import ins.marianao.sailing.fxml.services.ServiceQueryTripType;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,6 +30,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
 import javafx.util.Pair;
 
 public class ControllerTrip implements Initializable {
@@ -39,6 +43,7 @@ public class ControllerTrip implements Initializable {
     @FXML private ButtonBar buttonBar;
 
     @FXML private TableView<Trip> tripTable;
+    @FXML private TableColumn<Trip, Number> tripid;
     @FXML private TableColumn<Trip, String> tripClient;
     @FXML private TableColumn<Trip, Category> tripCategory;
     @FXML private TableColumn<Trip, String> tripTitle;
@@ -76,6 +81,14 @@ public class ControllerTrip implements Initializable {
     	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
     	SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm");
 
+    	this.tripid.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Trip, Number>, ObservableValue<Number>>() {
+            @Override
+            public ObservableValue<Number> call(TableColumn.CellDataFeatures<Trip, Number> usuari) {
+                return new SimpleLongProperty(tripTable.getItems().indexOf(usuari.getValue()) + 1); // Muestra el número de fila
+            }
+        });
+
+    	
         tripClient.setCellValueFactory(new PropertyValueFactory<>("client"));
         tripCategory.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDeparture().getTripType().getCategory()));
         tripTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDeparture().getTripType().getTitle()));
