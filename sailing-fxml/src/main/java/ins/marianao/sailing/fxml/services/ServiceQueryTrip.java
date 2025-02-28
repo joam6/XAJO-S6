@@ -46,8 +46,6 @@ public class ServiceQueryTrip extends ServiceQueryBase<Trip> {
 
 
 
-
-
 	@Override
 	protected List<Trip> customCall() throws Exception {
 		// Obtención del cliente HTTP utilizando el gestor de recursos.

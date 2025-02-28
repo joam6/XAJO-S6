@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import cat.institutmarianao.sailing.ws.model.Client;
 import cat.institutmarianao.sailing.ws.model.Trip;
@@ -18,15 +19,18 @@ import ins.marianao.sailing.fxml.exception.OnFailedEventHandler;
 import ins.marianao.sailing.fxml.manager.ResourceManager;
 import ins.marianao.sailing.fxml.services.ServiceQueryTrip;
 import ins.marianao.sailing.fxml.services.ServiceQueryTripType;
+import ins.marianao.sailing.fxml.utils.Formatters;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -65,7 +69,52 @@ public class ControllerTrip implements Initializable {
         configureTripTableColumns();
         reloadTrips();
         reloadTripTypes();
+        
+        // Configura el filtro para la categoría
+        setupCategoryFilter(resource);
     }
+
+    private void setupCategoryFilter(ResourceBundle resource) {
+        // Crear la lista de categorías con sus traducciones
+        List<Pair<String, String>> categories = Stream.of(Category.values())
+                .map(category -> new Pair<>(category.name(), resource.getString("text.Category." + category.name())))
+                .collect(Collectors.toList());
+
+        // Agregar la opción "Todas las categorías" al principio de la lista
+        categories.add(0, new Pair<>("ALL", resource.getString("text.Category.ALL"))); 
+        
+        // Asignar la lista de categorías al ComboBox
+        categorySelector.setItems(FXCollections.observableArrayList(categories));
+        
+        // Establecer un conversor para la visualización de los elementos en el ComboBox
+        categorySelector.setConverter(Formatters.getStringPairConverter("Category"));
+
+        // Recargar la lista de viajes cuando cambie la selección del ComboBox
+        categorySelector.valueProperty().addListener((observable, oldValue, newValue) -> {
+            // Si se selecciona "ALL", no filtramos nada, mostramos todos los viajes
+            if (newValue == null || newValue.getKey().equals("ALL")) {
+                // No filtrar, mostrar todos los viajes
+                tripTable.setItems(FXCollections.observableArrayList(tripTable.getItems()));
+            } else {
+                // Si se seleccionó una categoría específica
+                Category selectedCategory = Category.valueOf(newValue.getKey());  // Convierte la clave a un valor de la enumeración Category
+
+                // Crear un nuevo FilteredList para aplicar el filtro
+                FilteredList<Trip> filteredTrips = new FilteredList<>(FXCollections.observableArrayList(tripTable.getItems()));
+
+                // Filtrar los viajes según la categoría seleccionada
+                filteredTrips.setPredicate(trip -> {
+                    // Asegurarse de que el tipo de viaje no sea nulo
+                    Category category = trip.getDeparture().getTripType().getCategory();
+                    return category != null && category.equals(selectedCategory);
+                });
+
+                // Establecer la lista filtrada como fuente de datos para la tabla
+                tripTable.setItems(filteredTrips);
+            }
+        });
+    }
+
 
     private void configureCategorySelector(ResourceBundle resource) {
         List<Pair<String, String>> categories = FXCollections.observableArrayList();
@@ -88,6 +137,11 @@ public class ControllerTrip implements Initializable {
             }
         });
 
+    	this.tripCategory.setCellValueFactory(cellData ->  
+        new SimpleObjectProperty<>(cellData.getValue().getDeparture().getTripType().getCategory()));
+
+    	this.tripCategory.setCellFactory(ComboBoxTableCell.forTableColumn(Category.values()));
+    	
     	tripClient.setCellValueFactory(cellData -> {
     	    // Get the client associated with the current trip
     	    Client client = cellData.getValue().getClient();
