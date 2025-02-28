@@ -88,8 +88,13 @@ public class ControllerTrip implements Initializable {
             }
         });
 
-    	
-        tripClient.setCellValueFactory(new PropertyValueFactory<>("client"));
+    	tripClient.setCellValueFactory(cellData -> {
+    	    // Get the client associated with the current trip
+    	    Client client = cellData.getValue().getClient();
+    	    // Check if the client is not null and return their full name
+    	    String fullName = (client != null) ? client.getFullName() : "";
+    	    return new SimpleStringProperty(fullName);
+    	});
         tripCategory.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getDeparture().getTripType().getCategory()));
         tripTitle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDeparture().getTripType().getTitle()));
         tripMaxPlaces.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getDeparture().getTripType().getMaxPlaces()).asObject());
@@ -97,7 +102,8 @@ public class ControllerTrip implements Initializable {
         new SimpleIntegerProperty(cellData.getValue().getDeparture().getBookedPlaces()).asObject());
 
         tripStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        tripDeparture.setCellValueFactory(cellData -> new SimpleStringProperty(sdf2.format(cellData.getValue().getDeparture().getDate())));
+        tripDeparture.setCellValueFactory(cellData -> 
+        new SimpleStringProperty(sdf2.format(cellData.getValue().getDeparture().getDeparture())));
         tripPlaces.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPlaces()).asObject());
         tripComments.setCellValueFactory(new PropertyValueFactory<>("comments"));
         tripDate.setCellValueFactory(cellData -> new SimpleStringProperty(sdf.format(cellData.getValue().getDeparture().getDate())));
