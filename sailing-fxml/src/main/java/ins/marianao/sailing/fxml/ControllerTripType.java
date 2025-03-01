@@ -252,8 +252,8 @@ public class ControllerTripType implements Initializable {
 		
 		Double priceFrom = parseDoubleOrNull(this.priceFrom.getText());
 		Double priceTo = parseDoubleOrNull(this.priceTo.getText());
-		Integer placeFrom = parseIntegerOrNull(this.priceFrom.getText());
-		Integer placeTo = parseIntegerOrNull(this.priceTo.getText());
+		Integer placeFrom = parseIntegerOrNull(this.placeFrom.getText());
+		Integer placeTo = parseIntegerOrNull(this.placeTo.getText());
 		Integer durationFrom = parseIntegerOrNull(this.durationFrom.getText());
 	    Integer durationTo = parseIntegerOrNull(this.durationTo.getText());
 		// Iniciar la consulta para obtener los tipos de viaje

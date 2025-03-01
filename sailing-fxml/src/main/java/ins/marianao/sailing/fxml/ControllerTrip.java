@@ -2,6 +2,10 @@ package ins.marianao.sailing.fxml;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -24,6 +28,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
@@ -65,6 +70,11 @@ public class ControllerTrip implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resource) {
+    	
+    	this.fromDate.valueProperty().addListener((observable, oldValue, newValue) -> {
+    	    reloadTripTypes(); 
+    	});
+
         configureCategorySelector(resource);
         configureTripTableColumns();
         reloadTrips();
@@ -167,17 +177,43 @@ public class ControllerTrip implements Initializable {
         configureActionColumn(action3, "Acción 3");
     }
 
+
     private void reloadTrips() {
-        final ServiceQueryTrip queryTrip = new ServiceQueryTrip(null, null, null, null, null);
+        // Obtener los valores seleccionados de los ComboBox y DatePicker
+        Client selectedClient = clientSelector.getValue();
+        Pair<String, String> selectedCategory = categorySelector.getValue();
+        Pair<String, String> selectedStatus = statusSelector.getValue();
+        LocalDate fromDateValue = fromDate.getValue();
+        LocalDate toDateValue = toDate.getValue();
+
+        // Convertir los valores a los tipos esperados por el constructor de ServiceQueryTrip
+        List<User> clients = (selectedClient != null) ? Arrays.asList((User) selectedClient) : null;
+
+
+        // Crear una instancia de ServiceQueryTrip con los filtros
+        final ServiceQueryTrip queryTrip = new ServiceQueryTrip(
+            clients, 
+            null, 
+            null, 
+            fromDateValue, 
+            toDateValue
+        );
+
+        // Manejar el evento de éxito
         queryTrip.setOnSucceeded(event -> {
             List<Trip> trips = queryTrip.getValue();
             if (trips != null) {
                 tripTable.setItems(FXCollections.observableArrayList(trips));
             }
         });
+
+        // Manejar el evento de fallo
         queryTrip.setOnFailed(new OnFailedEventHandler(ResourceManager.getInstance().getText("error.viewTrips.web.service")));
+
+        // Iniciar la tarea
         queryTrip.start();
     }
+
 
     private void reloadTripTypes() {
         final ServiceQueryTripType queryTripType = new ServiceQueryTripType(null, null, null, null, null, null, null);
@@ -228,4 +264,7 @@ public class ControllerTrip implements Initializable {
         );
         alert.showAndWait().ifPresent(result -> System.out.println(result.getText() + " reserva del viaje: " + trip.getId()));
     }
+
+
+    
 }

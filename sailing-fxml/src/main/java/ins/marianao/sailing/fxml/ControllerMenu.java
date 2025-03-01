@@ -269,8 +269,17 @@ public class ControllerMenu implements Initializable {
 	}
 	
 	public void EditUser() {
+		try {
+	        // Cargar el controlador de la vista de tipos de viajes (ControllerTripType)
+			VBox vista = (VBox)FXMLLoader.load(getClass().getResource("ViewEditUser.fxml"), ResourceManager.getInstance().getTranslationBundle());
+			this.loadView(vista);
+	        
 
+	    } catch (Exception e) {
+	        ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
+	    }
 	}
+	
 	
 	public void triptype() {
 		try {
@@ -327,6 +336,19 @@ public class ControllerMenu implements Initializable {
 		}
 		
 	}
+	public void btnRegister() {
+		try {
+	        // Cargar el controlador de la vista de tipos de viajes (ControllerTripType)
+			VBox vista = (VBox)FXMLLoader.load(getClass().getResource("ViewFormLogin.fxml"), ResourceManager.getInstance().getTranslationBundle());
+			this.loadView(vista);
+	        
+
+	    } catch (Exception e) {
+	        ControllerMenu.showError(ResourceManager.getInstance().getText("error.menu.view.opening"), e.getMessage(), ExceptionUtils.getStackTrace(e));
+	    }
+	}
+	
+	
 	public void register(String username, String password, String confirmPassword, String fullName, Integer phone, User.Role role) {
 	    try {
 	        // Validar que las contraseñas coincidan

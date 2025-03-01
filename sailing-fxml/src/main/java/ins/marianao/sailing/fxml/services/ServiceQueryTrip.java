@@ -1,5 +1,6 @@
 package ins.marianao.sailing.fxml.services;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,18 +31,18 @@ public class ServiceQueryTrip extends ServiceQueryBase<Trip> {
 	private List<User> clientSelector;
 	private List<Category> categorySelector;
 	private List<Status> statusSelector;
-	private DatePicker fromDate;
-	private DatePicker toDate;
+	private LocalDate fromDate;
+	private LocalDate toDate;
 
 
 	public ServiceQueryTrip(List<User> clientSelector, List<Category> categorySelector, List<Status> statusSelector,
-			DatePicker fromDate, DatePicker toDate) {
+			LocalDate fromDateValue, LocalDate toDateValue) {
 		super();
 		this.clientSelector = clientSelector;
 		this.categorySelector = categorySelector;
 		this.statusSelector = statusSelector;
-		this.fromDate = fromDate;
-		this.toDate = toDate;
+		this.fromDate = fromDateValue;
+		this.toDate = toDateValue;
 	}
 
 
