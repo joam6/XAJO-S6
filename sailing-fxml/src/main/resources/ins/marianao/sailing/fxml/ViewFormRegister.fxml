@@ -37,7 +37,7 @@
                   <RowConstraints maxHeight="67.0" minHeight="0.0" prefHeight="0.0" vgrow="ALWAYS" />
             	</rowConstraints>
                 <children>
- 				<ComboBox fx:id="menuUser"/>
+ 				<ComboBox fx:id="menuUser" layoutX="100" layoutY="50" prefWidth="510" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="txtUsername" promptText="" styleClass="control-center" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
